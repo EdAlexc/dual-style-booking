@@ -94,6 +94,30 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Archivo:wght@400;600;800;900&family=Inter:wght@300;400;500;600&display=swap",
       },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://duel-style-booking.lovable.app/#organization",
+              name: "Studio MUA",
+              url: "https://duel-style-booking.lovable.app",
+              description: "Editorial and bridal makeup artistry in New York City.",
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://duel-style-booking.lovable.app/#website",
+              url: "https://duel-style-booking.lovable.app",
+              name: "Studio MUA",
+              publisher: { "@id": "https://duel-style-booking.lovable.app/#organization" },
+            },
+          ],
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
