@@ -16,13 +16,15 @@ export const Route = createFileRoute("/services")({
 function ServicesPage() {
   return (
     <main className="min-h-screen">
-      <section className="mx-auto max-w-6xl px-6 py-24">
+      <section className="mx-auto max-w-7xl px-6 pt-16 pb-8">
         <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Services</p>
         <h1 className="mt-3 font-display text-[clamp(2.5rem,6vw,5rem)] leading-[1]">
           Every face, given time.
         </h1>
+      </section>
 
-        <div className="mt-16 grid gap-px bg-border md:grid-cols-2">
+      <section className="mx-auto max-w-7xl px-6 pb-24">
+        <div className="grid gap-px bg-border md:grid-cols-2">
           {SERVICES.map((s) => (
             <article key={s.slug} className="flex flex-col bg-background p-8 md:p-10">
               <header className="flex items-baseline justify-between">
