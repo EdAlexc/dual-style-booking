@@ -190,7 +190,18 @@ function Panel(p: PanelProps) {
         <p className="text-[10px] uppercase tracking-[0.4em] text-white/70">
           {p.active ? "Now viewing" : p.revealed ? "Revealed" : "Hover to reveal"}
         </p>
-        <p className="mt-3 font-display text-[clamp(3.5rem,10vw,9rem)] leading-none text-white">
+        <p
+          className="mt-3 text-[clamp(3.5rem,10vw,9rem)] leading-none text-white"
+          style={{
+            fontFamily:
+              p.theme === "glam"
+                ? '"Playfair Display", ui-serif, Georgia, serif'
+                : '"Archivo", "Inter", ui-sans-serif, system-ui, sans-serif',
+            letterSpacing: p.theme === "bold" ? "0.02em" : "-0.01em",
+            textTransform: p.theme === "bold" ? "uppercase" : "none",
+            fontWeight: p.theme === "bold" ? 700 : 400,
+          }}
+        >
           {p.label}
         </p>
         <p className="mt-3 text-xs uppercase tracking-[0.3em] text-white/70">
