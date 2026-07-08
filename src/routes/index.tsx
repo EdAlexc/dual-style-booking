@@ -65,6 +65,7 @@ function Landing() {
 
   return (
     <main className="relative h-screen w-screen overflow-hidden bg-black text-white">
+      <h1 className="sr-only">Studio MUA — Editorial and Bridal Makeup Artist in New York City</h1>
       {/* GLAM — top-left triangle */}
       <Panel
         theme="glam"
