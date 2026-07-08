@@ -17,11 +17,19 @@ export const Route = createFileRoute("/contact")({
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
   email: z.string().trim().email("Enter a valid email").max(255),
+  phone: z
+    .string()
+    .trim()
+    .max(30, "Phone must be less than 30 characters")
+    .regex(/^[+()\-\s\d]*$/, "Enter a valid phone number")
+    .optional()
+    .or(z.literal("")),
+  subject: z.string().trim().min(1, "Subject is required").max(150),
   message: z.string().trim().min(1, "Message is required").max(1000),
 });
 
 function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
@@ -39,13 +47,16 @@ function ContactPage() {
     }
     setErrors({});
     setStatus("sending");
-    // Basic mailto handoff — no backend wiring on this simple form.
-    const subject = encodeURIComponent(`Inquiry from ${result.data.name}`);
-    const body = encodeURIComponent(`${result.data.message}\n\n— ${result.data.name} (${result.data.email})`);
+    const subject = encodeURIComponent(result.data.subject);
+    const phoneLine = result.data.phone ? `\nPhone: ${result.data.phone}` : "";
+    const body = encodeURIComponent(
+      `${result.data.message}\n\n— ${result.data.name} (${result.data.email})${phoneLine}`,
+    );
     window.location.href = `mailto:hello@studio-mua.com?subject=${subject}&body=${body}`;
     setStatus("sent");
-    setForm({ name: "", email: "", message: "" });
+    setForm({ name: "", email: "", phone: "", subject: "", message: "" });
   };
+
 
   return (
     <main className="min-h-screen">
