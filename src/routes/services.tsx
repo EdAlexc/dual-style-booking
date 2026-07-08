@@ -36,6 +36,7 @@ export const Route = createFileRoute("/services")({
 });
 
 function ServicesPage() {
+  const { theme } = useTheme();
   return (
     <main className="min-h-screen">
       <section className="mx-auto max-w-7xl px-6 pt-10 pb-8">
