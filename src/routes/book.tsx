@@ -298,12 +298,11 @@ function BookPage() {
           )}
         </div>
 
-        {step !== 4 && (
+        {step !== 4 && step !== 0 && (
           <div className="mt-10 flex items-center justify-between">
             <button
-              onClick={() => setStep((s) => Math.max(1, (s - 1)) as Step)}
+              onClick={() => setStep((s) => Math.max(0, s - 1) as Step)}
               className="text-xs uppercase tracking-[0.3em] text-muted-foreground disabled:opacity-40"
-              disabled={step === 1}
             >
               ← Back
             </button>
