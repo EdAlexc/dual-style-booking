@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useTheme } from "@/lib/theme";
 
 export const Route = createFileRoute("/bridal-skin-prep")({
   head: () => ({
