@@ -40,6 +40,7 @@ export const Route = createFileRoute("/bridal-skin-prep")({
 });
 
 function BridalSkinPrepPage() {
+  const { theme } = useTheme();
   return (
     <main className="min-h-screen">
       <article className="mx-auto max-w-3xl px-6 pt-10 pb-24">
