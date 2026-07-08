@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SERVICES } from "@/lib/site-data";
+import { useTheme } from "@/lib/theme";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -35,6 +36,7 @@ export const Route = createFileRoute("/services")({
 });
 
 function ServicesPage() {
+  const { theme } = useTheme();
   return (
     <main className="min-h-screen">
       <section className="mx-auto max-w-7xl px-6 pt-10 pb-8">
@@ -65,7 +67,7 @@ function ServicesPage() {
               <div className="mt-auto pt-8">
                 <Link
                   to="/book"
-                  search={{ service: s.slug }}
+                  search={{ service: s.slug, register: theme }}
                   className="story-link text-xs uppercase tracking-[0.3em]"
                 >
                   Book {s.name} →

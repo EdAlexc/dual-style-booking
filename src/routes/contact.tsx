@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
+import { useTheme } from "@/lib/theme";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -29,6 +30,7 @@ const contactSchema = z.object({
 });
 
 function ContactPage() {
+  const { theme } = useTheme();
   const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
@@ -187,6 +189,7 @@ function ContactPage() {
         <div className="mt-16">
           <Link
             to="/book"
+            search={{ register: theme }}
             className="inline-block border border-foreground px-6 py-3 text-xs uppercase tracking-[0.3em] hover:bg-foreground hover:text-background"
           >
             Or book directly →

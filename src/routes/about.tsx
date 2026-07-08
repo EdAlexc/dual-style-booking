@@ -14,7 +14,10 @@ export const Route = createFileRoute("/about")({
 
 const PRESS = ["Vogue", "Cereal", "NARS", "The Cut", "Vanity Fair", "British GQ"];
 
+import { useTheme } from "@/lib/theme";
+
 function AboutPage() {
+  const { theme } = useTheme();
   return (
     <main className="min-h-screen">
       <section className="mx-auto max-w-7xl px-6 pt-10 pb-8">
@@ -50,6 +53,7 @@ function AboutPage() {
         <div className="mt-16">
           <Link
             to="/book"
+            search={{ register: theme }}
             className="inline-block border border-foreground bg-foreground px-6 py-3 text-xs uppercase tracking-[0.3em] text-background hover:bg-transparent hover:text-foreground"
           >
             Book a session

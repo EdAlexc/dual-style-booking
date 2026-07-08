@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useTheme } from "@/lib/theme";
 
 export const Route = createFileRoute("/bridal-skin-prep")({
   head: () => ({
@@ -39,6 +40,7 @@ export const Route = createFileRoute("/bridal-skin-prep")({
 });
 
 function BridalSkinPrepPage() {
+  const { theme } = useTheme();
   return (
     <main className="min-h-screen">
       <article className="mx-auto max-w-3xl px-6 pt-10 pb-24">
@@ -132,7 +134,7 @@ function BridalSkinPrepPage() {
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               to="/book"
-              search={{ service: "bridal" }}
+              search={{ service: "bridal", register: theme }}
               className="inline-block border border-foreground bg-foreground px-6 py-3 text-xs uppercase tracking-[0.3em] text-background hover:bg-transparent hover:text-foreground"
             >
               Book a bridal trial
