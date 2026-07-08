@@ -162,6 +162,26 @@ function ContactPage() {
           </div>
         </form>
 
+        <dl className="mt-16 grid gap-8 sm:grid-cols-2">
+          <div>
+            <dt className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Email</dt>
+            <dd className="mt-2 font-display text-2xl">hello@studio-mua.com</dd>
+          </div>
+          <div>
+            <dt className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Studio</dt>
+            <dd className="mt-2 font-display text-2xl">New York, NY</dd>
+          </div>
+          <div>
+            <dt className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Instagram</dt>
+            <dd className="mt-2 font-display text-2xl">@studio.mua</dd>
+          </div>
+          <div>
+            <dt className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Representation</dt>
+            <dd className="mt-2 font-display text-2xl">The Wall Group</dd>
+          </div>
+        </dl>
+
+
         <div className="mt-16">
           <Link
             to="/book"
