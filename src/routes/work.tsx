@@ -41,7 +41,7 @@ function WorkPage() {
 
   return (
     <main className="min-h-screen">
-      <section className="mx-auto max-w-7xl px-6 pb-8 pt-16">
+      <section className="mx-auto max-w-7xl px-6 pt-6 pb-8">
         <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
           {theme === "glam" ? "Glam register" : "Bold register"} · selected work
         </p>

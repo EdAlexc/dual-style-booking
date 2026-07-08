@@ -89,7 +89,7 @@ function BookPage() {
 
   return (
     <main className="min-h-screen">
-      <section className="mx-auto max-w-7xl px-6 pt-16 pb-8">
+      <section className="mx-auto max-w-7xl px-6 pt-6 pb-8">
         <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
           Book · Step {step === 4 ? "✓" : step} of 3
         </p>
