@@ -24,7 +24,7 @@ function AboutPage() {
         </h1>
       </section>
 
-      <section className="mx-auto max-w-4xl px-6 pb-24">
+      <section className="mx-auto max-w-7xl px-6 pb-24">
         <div className="grid gap-10 md:grid-cols-2">
           <p className="text-lg leading-relaxed text-foreground/85">
             Studio MUA is the working name of a New York City makeup artist who
