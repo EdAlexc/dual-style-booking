@@ -18,6 +18,24 @@ export const Route = createFileRoute("/work")({
       { property: "og:title", content: "Work — Studio MUA" },
       { property: "og:description", content: "Selected editorial, campaign, and bridal makeup." },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Selected Work — Studio MUA",
+          description: "Editorial, campaign, and bridal makeup portfolio.",
+          hasPart: WORK.map((w) => ({
+            "@type": "CreativeWork",
+            name: w.title,
+            locationCreated: w.location,
+            dateCreated: String(w.year),
+            creditText: w.credit,
+          })),
+        }),
+      },
+    ],
   }),
   component: WorkPage,
 });

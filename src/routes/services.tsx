@@ -9,6 +9,27 @@ export const Route = createFileRoute("/services")({
       { property: "og:title", content: "Services & Pricing — Studio MUA" },
       { property: "og:description", content: "Bridal, editorial, events, and one-to-one lessons." },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Studio MUA Services",
+          itemListElement: SERVICES.map((s, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": "Service",
+              name: s.name,
+              description: s.description,
+              provider: { "@type": "Organization", name: "Studio MUA" },
+              offers: { "@type": "Offer", price: s.price, priceCurrency: "USD" },
+            },
+          })),
+        }),
+      },
+    ],
   }),
   component: ServicesPage,
 });
