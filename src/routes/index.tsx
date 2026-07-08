@@ -42,6 +42,7 @@ function Landing() {
   const navigate = useNavigate();
   const [hovered, setHovered] = useState<Theme | null>(null);
   const [revealed, setRevealed] = useState<Set<Theme>>(new Set());
+  const [explorePicker, setExplorePicker] = useState(false);
   const glamVideo = useRef<HTMLVideoElement>(null);
   const boldVideo = useRef<HTMLVideoElement>(null);
 
@@ -60,6 +61,11 @@ function Landing() {
   const deactivate = () => setHovered(null);
 
   const openWork = (t: Theme) => {
+    navigate({ to: "/work", search: { filter: t } });
+  };
+
+  const pickExplore = (t: Theme) => {
+    setTheme(t);
     navigate({ to: "/work", search: { filter: t } });
   };
 
