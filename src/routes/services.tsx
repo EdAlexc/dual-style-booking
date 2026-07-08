@@ -67,7 +67,7 @@ function ServicesPage() {
               <div className="mt-auto pt-8">
                 <Link
                   to="/book"
-                  search={{ service: s.slug }}
+                  search={{ service: s.slug, register: theme }}
                   className="story-link text-xs uppercase tracking-[0.3em]"
                 >
                   Book {s.name} →
