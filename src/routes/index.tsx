@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useTheme, type Theme } from "@/lib/theme";
 import glamPoster from "@/assets/glam-hero.jpg";
