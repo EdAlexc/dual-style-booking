@@ -89,15 +89,17 @@ function BookPage() {
 
   return (
     <main className="min-h-screen">
-      <section className="mx-auto max-w-3xl px-6 py-20">
+      <section className="mx-auto max-w-7xl px-6 pt-16 pb-8">
         <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
           Book · Step {step === 4 ? "✓" : step} of 3
         </p>
         <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,4rem)] leading-[1]">
           {step === 4 ? "Received." : "Request a session."}
         </h1>
+      </section>
 
-        <div className="mt-10">
+      <section className="mx-auto max-w-3xl px-6 pb-20">
+        <div>
           {step === 1 && (
             <div className="grid gap-4 sm:grid-cols-2">
               {SERVICES.map((s) => (
