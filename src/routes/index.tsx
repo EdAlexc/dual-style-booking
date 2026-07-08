@@ -71,6 +71,7 @@ function Landing() {
         active={hovered === "bold"}
         revealed={revealed.has("bold")}
         onActivate={() => activate("bold")}
+        onNavigate={() => openWork("bold")}
         onDeactivate={deactivate}
         clip="polygon(100% 0, 100% 100%, 0 100%)"
         align="items-end justify-end"
