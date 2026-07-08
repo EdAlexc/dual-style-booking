@@ -150,8 +150,8 @@ function Panel(p: PanelProps) {
       onMouseLeave={p.onDeactivate}
       onFocus={p.onActivate}
       onBlur={p.onDeactivate}
-      onClick={p.onActivate}
-      aria-label={`Reveal ${p.label} — preview the ${p.label.toLowerCase()} makeup direction`}
+      onClick={() => { p.onActivate(); p.onNavigate(); }}
+      aria-label={`View ${p.label} work — makeup in the ${p.label.toLowerCase()} register`}
       className={`group absolute inset-0 z-10 flex ${p.align} cursor-pointer overflow-hidden text-left focus:outline-none`}
       style={{ clipPath: p.clip }}
     >
