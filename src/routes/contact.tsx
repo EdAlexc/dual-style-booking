@@ -120,6 +120,38 @@ function ContactPage() {
           </div>
 
           <div>
+            <label htmlFor="phone" className="block text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              Phone <span className="text-foreground/50">(Optional)</span>
+            </label>
+            <input
+              id="phone"
+              type="tel"
+              value={form.phone}
+              onChange={(e) => setForm({ ...form, phone: e.target.value })}
+              maxLength={30}
+              className="mt-2 w-full border-b border-foreground/30 bg-transparent py-2 font-display text-xl outline-none focus:border-foreground"
+            />
+            {errors.phone && <p className="mt-1 text-xs text-destructive">{errors.phone}</p>}
+          </div>
+
+          <div>
+            <label htmlFor="subject" className="block text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              Subject
+            </label>
+            <input
+              id="subject"
+              type="text"
+              value={form.subject}
+              onChange={(e) => setForm({ ...form, subject: e.target.value })}
+              maxLength={150}
+              className="mt-2 w-full border-b border-foreground/30 bg-transparent py-2 font-display text-xl outline-none focus:border-foreground"
+            />
+            {errors.subject && <p className="mt-1 text-xs text-destructive">{errors.subject}</p>}
+          </div>
+
+
+
+          <div>
             <label htmlFor="message" className="block text-xs uppercase tracking-[0.3em] text-muted-foreground">
               Message
             </label>
