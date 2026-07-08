@@ -98,6 +98,7 @@ export function SiteHeader() {
               <Link
                 key={n.to}
                 to={n.to}
+                search={n.to === "/work" ? { filter: theme } : undefined}
                 className="py-2 uppercase tracking-widest"
                 activeProps={{ className: "!text-accent" }}
                 inactiveProps={{ className: "text-muted-foreground" }}
