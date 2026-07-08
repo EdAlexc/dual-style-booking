@@ -60,7 +60,7 @@ function ContactPage() {
 
   return (
     <main className="min-h-screen">
-      <section className="mx-auto max-w-7xl px-6 pt-16 pb-8">
+      <section className="mx-auto max-w-7xl px-6 pt-6 pb-8">
         <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Contact</p>
         <h1 className="mt-3 font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1]">
           Say hello.
