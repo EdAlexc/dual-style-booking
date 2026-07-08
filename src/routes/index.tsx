@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useTheme, type Theme } from "@/lib/theme";
 import glamPoster from "@/assets/glam-hero.jpg";
@@ -21,6 +21,7 @@ export const Route = createFileRoute("/")({
  */
 function Landing() {
   const { setTheme } = useTheme();
+  const navigate = useNavigate();
   const [hovered, setHovered] = useState<Theme | null>(null);
   const [revealed, setRevealed] = useState<Set<Theme>>(new Set());
   const glamVideo = useRef<HTMLVideoElement>(null);
@@ -40,6 +41,10 @@ function Landing() {
 
   const deactivate = () => setHovered(null);
 
+  const openWork = (t: Theme) => {
+    navigate({ to: "/work", search: { filter: t } });
+  };
+
   return (
     <main className="relative h-screen w-screen overflow-hidden bg-black text-white">
       {/* GLAM — top-left triangle */}
@@ -48,6 +53,7 @@ function Landing() {
         active={hovered === "glam"}
         revealed={revealed.has("glam")}
         onActivate={() => activate("glam")}
+        onNavigate={() => openWork("glam")}
         onDeactivate={deactivate}
         clip="polygon(0 0, 100% 0, 0 100%)"
         align="items-start justify-start"
@@ -65,6 +71,7 @@ function Landing() {
         active={hovered === "bold"}
         revealed={revealed.has("bold")}
         onActivate={() => activate("bold")}
+        onNavigate={() => openWork("bold")}
         onDeactivate={deactivate}
         clip="polygon(100% 0, 100% 100%, 0 100%)"
         align="items-end justify-end"
@@ -124,6 +131,7 @@ type PanelProps = {
   revealed: boolean;
   onActivate: () => void;
   onDeactivate: () => void;
+  onNavigate: () => void;
   clip: string;
   align: string;
   textAnchor: string;
@@ -142,8 +150,8 @@ function Panel(p: PanelProps) {
       onMouseLeave={p.onDeactivate}
       onFocus={p.onActivate}
       onBlur={p.onDeactivate}
-      onClick={p.onActivate}
-      aria-label={`Reveal ${p.label} — preview the ${p.label.toLowerCase()} makeup direction`}
+      onClick={() => { p.onActivate(); p.onNavigate(); }}
+      aria-label={`View ${p.label} work — makeup in the ${p.label.toLowerCase()} register`}
       className={`group absolute inset-0 z-10 flex ${p.align} cursor-pointer overflow-hidden text-left focus:outline-none`}
       style={{ clipPath: p.clip }}
     >

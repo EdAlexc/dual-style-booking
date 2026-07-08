@@ -1,9 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { fallback, zodValidator } from "@tanstack/zod-adapter";
+import { z } from "zod";
 import { WORK } from "@/lib/site-data";
 import { useTheme } from "@/lib/theme";
 
+const workSearchSchema = z.object({
+  filter: fallback(z.enum(["all", "glam", "bold"]), "all").default("all"),
+});
+
 export const Route = createFileRoute("/work")({
+  validateSearch: zodValidator(workSearchSchema),
   head: () => ({
     meta: [
       { title: "Work — Studio MUA" },
@@ -18,8 +25,15 @@ export const Route = createFileRoute("/work")({
 type Filter = "all" | "glam" | "bold";
 
 function WorkPage() {
-  const [filter, setFilter] = useState<Filter>("all");
+  const { filter: initialFilter } = Route.useSearch();
+  const [filter, setFilter] = useState<Filter>(initialFilter);
   const { theme } = useTheme();
+
+  // Keep local filter in sync when arriving via a new search param.
+  useEffect(() => {
+    setFilter(initialFilter);
+  }, [initialFilter]);
+
   const items = useMemo(
     () => (filter === "all" ? WORK : WORK.filter((w) => w.theme === filter)),
     [filter],
