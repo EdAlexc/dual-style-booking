@@ -131,6 +131,7 @@ type PanelProps = {
   revealed: boolean;
   onActivate: () => void;
   onDeactivate: () => void;
+  onNavigate: () => void;
   clip: string;
   align: string;
   textAnchor: string;
