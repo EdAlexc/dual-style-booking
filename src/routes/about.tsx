@@ -17,12 +17,15 @@ const PRESS = ["Vogue", "Cereal", "NARS", "The Cut", "Vanity Fair", "British GQ"
 function AboutPage() {
   return (
     <main className="min-h-screen">
-      <section className="mx-auto max-w-4xl px-6 py-24">
+      <section className="mx-auto max-w-7xl px-6 pt-16 pb-8">
         <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">About</p>
         <h1 className="mt-3 font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1]">
           Two signatures. One eye for the frame.
         </h1>
-        <div className="mt-10 grid gap-10 md:grid-cols-2">
+      </section>
+
+      <section className="mx-auto max-w-4xl px-6 pb-24">
+        <div className="grid gap-10 md:grid-cols-2">
           <p className="text-lg leading-relaxed text-foreground/85">
             Studio MUA is the working name of a New York City makeup artist who
             splits her time between editorial sets and private bridal clients.
