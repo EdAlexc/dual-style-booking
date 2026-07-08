@@ -42,6 +42,7 @@ function Landing() {
   const navigate = useNavigate();
   const [hovered, setHovered] = useState<Theme | null>(null);
   const [revealed, setRevealed] = useState<Set<Theme>>(new Set());
+  const [explorePicker, setExplorePicker] = useState(false);
   const glamVideo = useRef<HTMLVideoElement>(null);
   const boldVideo = useRef<HTMLVideoElement>(null);
 
@@ -60,6 +61,11 @@ function Landing() {
   const deactivate = () => setHovered(null);
 
   const openWork = (t: Theme) => {
+    navigate({ to: "/work", search: { filter: t } });
+  };
+
+  const pickExplore = (t: Theme) => {
+    setTheme(t);
     navigate({ to: "/work", search: { filter: t } });
   };
 
@@ -134,12 +140,78 @@ function Landing() {
       </div>
 
       {/* Skip to explore */}
-      <Link
-        to="/work"
+      <button
+        type="button"
+        onClick={() => setExplorePicker(true)}
         className="absolute bottom-6 right-6 z-40 border border-white/40 bg-black/40 px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-white/80 backdrop-blur-sm transition-colors hover:bg-white hover:text-black"
       >
         Explore work →
-      </Link>
+      </button>
+
+      {/* Explore register picker */}
+      {explorePicker && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Choose a register to explore"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          onClick={() => setExplorePicker(false)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="mx-6 w-full max-w-2xl border border-white/20 bg-black p-8 text-white md:p-12"
+          >
+            <p className="text-[10px] uppercase tracking-[0.4em] text-white/60">Explore work</p>
+            <h2 className="mt-3 font-display text-4xl leading-[1] md:text-5xl">
+              Glam or Bold?
+            </h2>
+            <p className="mt-4 text-sm text-white/70">
+              Pick a register and we'll show you that side of the portfolio.
+            </p>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              <button
+                type="button"
+                onClick={() => pickExplore("glam")}
+                className="group border border-white/30 p-6 text-left transition-colors hover:bg-white hover:text-black"
+              >
+                <p className="font-display text-3xl">Glam</p>
+                <p className="mt-2 text-xs uppercase tracking-[0.3em] text-white/60 group-hover:text-black/60">
+                  Ivory · Dewy · Editorial
+                </p>
+              </button>
+              <button
+                type="button"
+                onClick={() => pickExplore("bold")}
+                className="group border border-white/30 p-6 text-left transition-colors hover:bg-white hover:text-black"
+              >
+                <p className="font-display text-3xl uppercase tracking-wide">Bold</p>
+                <p className="mt-2 text-xs uppercase tracking-[0.3em] text-white/60 group-hover:text-black/60">
+                  Noir · Graphic · Editorial
+                </p>
+              </button>
+            </div>
+            <div className="mt-6 flex items-center justify-between">
+              <button
+                type="button"
+                onClick={() => {
+                  setExplorePicker(false);
+                  navigate({ to: "/work", search: { filter: "all" } });
+                }}
+                className="text-[10px] uppercase tracking-[0.3em] text-white/60 hover:text-white"
+              >
+                See all →
+              </button>
+              <button
+                type="button"
+                onClick={() => setExplorePicker(false)}
+                className="text-[10px] uppercase tracking-[0.3em] text-white/60 hover:text-white"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
