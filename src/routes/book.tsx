@@ -15,7 +15,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-const searchSchema = z.object({ service: z.string().optional() });
+const searchSchema = z.object({
+  service: z.string().optional(),
+  register: z.enum(["glam", "bold"]).optional(),
+});
 
 export const Route = createFileRoute("/book")({
   validateSearch: (s) => searchSchema.parse(s),
@@ -32,7 +35,7 @@ export const Route = createFileRoute("/book")({
 
 const TIME_SLOTS = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00"];
 
-type Step = 1 | 2 | 3 | 4;
+type Step = 0 | 1 | 2 | 3 | 4;
 
 function makeReference() {
   return "SM-" + Math.random().toString(36).slice(2, 8).toUpperCase();
@@ -40,9 +43,9 @@ function makeReference() {
 
 function BookPage() {
   const initial = Route.useSearch();
-  const { theme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
-  const [step, setStep] = useState<Step>(1);
+  const [step, setStep] = useState<Step>(initial.register ? 1 : 0);
   const [serviceSlug, setServiceSlug] = useState<string>(initial.service ?? "bridal");
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [time, setTime] = useState<string>("");
@@ -55,6 +58,11 @@ function BookPage() {
   const [reference, setReference] = useState<string | null>(null);
 
   const service = useMemo(() => SERVICES.find((s) => s.slug === serviceSlug)!, [serviceSlug]);
+
+  function pickRegister(r: "glam" | "bold") {
+    setTheme(r);
+    setStep(1);
+  }
 
   const canNext =
     (step === 1 && !!service) ||
