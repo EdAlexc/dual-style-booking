@@ -52,6 +52,7 @@ export function SiteHeader() {
             <Link
               key={n.to}
               to={n.to}
+              search={n.to === "/work" ? { filter: theme } : undefined}
               className="story-link uppercase tracking-widest hover:text-foreground"
               activeProps={{ className: "!text-accent" }}
               inactiveProps={{ className: "text-muted-foreground" }}
