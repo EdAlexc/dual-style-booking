@@ -21,6 +21,7 @@ export const Route = createFileRoute("/")({
  */
 function Landing() {
   const { setTheme } = useTheme();
+  const navigate = useNavigate();
   const [hovered, setHovered] = useState<Theme | null>(null);
   const [revealed, setRevealed] = useState<Set<Theme>>(new Set());
   const glamVideo = useRef<HTMLVideoElement>(null);
@@ -39,6 +40,10 @@ function Landing() {
   };
 
   const deactivate = () => setHovered(null);
+
+  const openWork = (t: Theme) => {
+    navigate({ to: "/work", search: { filter: t } });
+  };
 
   return (
     <main className="relative h-screen w-screen overflow-hidden bg-black text-white">
