@@ -189,6 +189,7 @@ function ContactPage() {
         <div className="mt-16">
           <Link
             to="/book"
+            search={{ register: theme }}
             className="inline-block border border-foreground px-6 py-3 text-xs uppercase tracking-[0.3em] hover:bg-foreground hover:text-background"
           >
             Or book directly →
