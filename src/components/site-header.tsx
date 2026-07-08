@@ -70,6 +70,7 @@ export function SiteHeader() {
           </button>
           <Link
             to="/book"
+            search={{ register: theme }}
             className="rounded-none border border-foreground bg-foreground px-4 py-2 text-xs uppercase tracking-[0.2em] text-background transition-colors hover:bg-transparent hover:text-foreground"
           >
             Book
