@@ -83,6 +83,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:description", content: "Editorial and bridal makeup artistry. Book Glam or Bold sessions with a New York-based makeup artist." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e7837322-9d67-4d6a-b1bd-4d8a0b656d1e/id-preview-efa2f4ff--07843970-8c6d-40d4-984d-63f9c6f0cd43.lovable.app-1783551023987.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e7837322-9d67-4d6a-b1bd-4d8a0b656d1e/id-preview-efa2f4ff--07843970-8c6d-40d4-984d-63f9c6f0cd43.lovable.app-1783551023987.png" },
+      { name: "google-site-verification", content: "g9fClCG7Z0qRh2rPrFeBIbVcwNDRZp-JLshVeMu7fnI" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
