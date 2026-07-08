@@ -27,7 +27,7 @@ export function SiteHeader() {
               key={n.to}
               to={n.to}
               className="story-link uppercase tracking-widest text-muted-foreground hover:text-foreground"
-              activeProps={{ className: "story-link uppercase tracking-widest text-foreground" }}
+              activeProps={{ className: "story-link uppercase tracking-widest text-accent" }}
             >
               {n.label}
             </Link>
