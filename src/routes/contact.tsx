@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
+import { useTheme } from "@/lib/theme";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
