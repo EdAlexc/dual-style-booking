@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SERVICES } from "@/lib/site-data";
+import { useTheme } from "@/lib/theme";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
