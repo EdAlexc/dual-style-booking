@@ -60,7 +60,7 @@ function ContactPage() {
 
   return (
     <main className="min-h-screen">
-      <section className="mx-auto max-w-3xl px-6 py-24">
+      <section className="mx-auto max-w-7xl px-6 pt-16 pb-8">
         <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Contact</p>
         <h1 className="mt-3 font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1]">
           Say hello.
@@ -68,8 +68,10 @@ function ContactPage() {
         <p className="mt-6 max-w-xl text-lg text-foreground/85">
           For bookings and press inquiries. Replies within two business days.
         </p>
+      </section>
 
-        <form onSubmit={onSubmit} noValidate className="mt-16 space-y-6">
+      <section className="mx-auto max-w-3xl px-6 pb-24">
+        <form onSubmit={onSubmit} noValidate className="space-y-6">
 
           <div>
             <label htmlFor="name" className="block text-xs uppercase tracking-[0.3em] text-muted-foreground">
