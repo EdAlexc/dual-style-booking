@@ -33,7 +33,8 @@ function ServicesPage() {
               </header>
               <p className="mt-2 text-sm uppercase tracking-[0.2em] text-accent">{s.price}</p>
               <p className="mt-4 text-foreground/85">{s.description}</p>
-              <ul className="mt-6 space-y-1 text-sm text-muted-foreground">
+              <p className="mt-6 text-xs uppercase tracking-[0.2em] text-muted-foreground">Includes:</p>
+              <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-sm text-muted-foreground">
                 {s.includes.map((i) => (
                   <li key={i}>— {i}</li>
                 ))}
