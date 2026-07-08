@@ -15,7 +15,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-const searchSchema = z.object({ service: z.string().optional() });
+const searchSchema = z.object({
+  service: z.string().optional(),
+  register: z.enum(["glam", "bold"]).optional(),
+});
 
 export const Route = createFileRoute("/book")({
   validateSearch: (s) => searchSchema.parse(s),
@@ -32,7 +35,7 @@ export const Route = createFileRoute("/book")({
 
 const TIME_SLOTS = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00"];
 
-type Step = 1 | 2 | 3 | 4;
+type Step = 0 | 1 | 2 | 3 | 4;
 
 function makeReference() {
   return "SM-" + Math.random().toString(36).slice(2, 8).toUpperCase();
@@ -40,9 +43,9 @@ function makeReference() {
 
 function BookPage() {
   const initial = Route.useSearch();
-  const { theme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
-  const [step, setStep] = useState<Step>(1);
+  const [step, setStep] = useState<Step>(initial.register ? 1 : 0);
   const [serviceSlug, setServiceSlug] = useState<string>(initial.service ?? "bridal");
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [time, setTime] = useState<string>("");
@@ -55,6 +58,11 @@ function BookPage() {
   const [reference, setReference] = useState<string | null>(null);
 
   const service = useMemo(() => SERVICES.find((s) => s.slug === serviceSlug)!, [serviceSlug]);
+
+  function pickRegister(r: "glam" | "bold") {
+    setTheme(r);
+    setStep(1);
+  }
 
   const canNext =
     (step === 1 && !!service) ||
@@ -91,15 +99,86 @@ function BookPage() {
     <main className="min-h-screen">
       <section className="mx-auto max-w-7xl px-6 pt-10 pb-8">
         <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-          Book · Step {step === 4 ? "✓" : step} of 3
+          {step === 0
+            ? "Book · Choose your register"
+            : `Book · Step ${step === 4 ? "✓" : step} of 3`}
         </p>
         <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,4rem)] leading-[1]">
-          {step === 4 ? "Received." : "Request a session."}
+          {step === 0
+            ? "Glam or Bold?"
+            : step === 4
+              ? "Received."
+              : "Request a session."}
         </h1>
+        {step === 0 && (
+          <p className="mt-4 max-w-2xl text-foreground/80">
+            Two signatures. Pick the register you want on the day —
+            you can still refine at your consultation. This choice sets
+            the tone for the rest of the booking.
+          </p>
+        )}
       </section>
 
       <section className="mx-auto max-w-3xl px-6 pb-20">
         <div>
+          {step === 0 && (
+            <div className="grid gap-4 sm:grid-cols-2">
+              <button
+                onClick={() => pickRegister("glam")}
+                className="group border border-border p-8 text-left transition-colors hover:border-foreground"
+                style={{
+                  background:
+                    "linear-gradient(135deg, oklch(0.95 0.02 60), oklch(0.82 0.08 30))",
+                  color: "oklch(0.2 0.02 30)",
+                }}
+              >
+                <p className="text-xs uppercase tracking-[0.3em] opacity-70">Register 01</p>
+                <p
+                  className="mt-3 font-display text-5xl leading-none"
+                  style={{ fontFamily: '"Playfair Display", ui-serif, Georgia, serif' }}
+                >
+                  Glam
+                </p>
+                <p className="mt-4 text-sm opacity-85">
+                  Ivory · Dewy · Romantic. Luminous skin, soft
+                  sculpted eyes, camera-first bridal and editorial.
+                </p>
+                <p className="mt-6 text-xs uppercase tracking-[0.3em] opacity-70">
+                  Choose Glam →
+                </p>
+              </button>
+
+              <button
+                onClick={() => pickRegister("bold")}
+                className="group border border-border p-8 text-left transition-colors hover:border-foreground"
+                style={{
+                  background:
+                    "linear-gradient(135deg, oklch(0.18 0.02 20), oklch(0.32 0.14 25))",
+                  color: "oklch(0.98 0.01 60)",
+                }}
+              >
+                <p className="text-xs uppercase tracking-[0.3em] opacity-70">Register 02</p>
+                <p
+                  className="mt-3 font-display text-5xl leading-none uppercase"
+                  style={{
+                    fontFamily: '"Archivo", "Inter", ui-sans-serif, system-ui, sans-serif',
+                    letterSpacing: "0.02em",
+                    fontWeight: 700,
+                  }}
+                >
+                  Bold
+                </p>
+                <p className="mt-4 text-sm opacity-85">
+                  Noir · Graphic · Sculptural. High-contrast colour,
+                  editorial edge, red-carpet and campaign.
+                </p>
+                <p className="mt-6 text-xs uppercase tracking-[0.3em] opacity-70">
+                  Choose Bold →
+                </p>
+              </button>
+            </div>
+          )}
+
           {step === 1 && (
             <div className="grid gap-4 sm:grid-cols-2">
               {SERVICES.map((s) => (
@@ -219,12 +298,11 @@ function BookPage() {
           )}
         </div>
 
-        {step !== 4 && (
+        {step !== 4 && step !== 0 && (
           <div className="mt-10 flex items-center justify-between">
             <button
-              onClick={() => setStep((s) => Math.max(1, (s - 1)) as Step)}
+              onClick={() => setStep((s) => Math.max(0, s - 1) as Step)}
               className="text-xs uppercase tracking-[0.3em] text-muted-foreground disabled:opacity-40"
-              disabled={step === 1}
             >
               ← Back
             </button>
