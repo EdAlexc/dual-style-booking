@@ -17,11 +17,19 @@ export const Route = createFileRoute("/contact")({
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
   email: z.string().trim().email("Enter a valid email").max(255),
+  phone: z
+    .string()
+    .trim()
+    .max(30, "Phone must be less than 30 characters")
+    .regex(/^[+()\-\s\d]*$/, "Enter a valid phone number")
+    .optional()
+    .or(z.literal("")),
+  subject: z.string().trim().min(1, "Subject is required").max(150),
   message: z.string().trim().min(1, "Message is required").max(1000),
 });
 
 function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
@@ -39,13 +47,16 @@ function ContactPage() {
     }
     setErrors({});
     setStatus("sending");
-    // Basic mailto handoff — no backend wiring on this simple form.
-    const subject = encodeURIComponent(`Inquiry from ${result.data.name}`);
-    const body = encodeURIComponent(`${result.data.message}\n\n— ${result.data.name} (${result.data.email})`);
+    const subject = encodeURIComponent(result.data.subject);
+    const phoneLine = result.data.phone ? `\nPhone: ${result.data.phone}` : "";
+    const body = encodeURIComponent(
+      `${result.data.message}\n\n— ${result.data.name} (${result.data.email})${phoneLine}`,
+    );
     window.location.href = `mailto:hello@studio-mua.com?subject=${subject}&body=${body}`;
     setStatus("sent");
-    setForm({ name: "", email: "", message: "" });
+    setForm({ name: "", email: "", phone: "", subject: "", message: "" });
   };
+
 
   return (
     <main className="min-h-screen">
@@ -107,6 +118,38 @@ function ContactPage() {
             />
             {errors.email && <p className="mt-1 text-xs text-destructive">{errors.email}</p>}
           </div>
+
+          <div>
+            <label htmlFor="phone" className="block text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              Phone <span className="text-foreground/50">(Optional)</span>
+            </label>
+            <input
+              id="phone"
+              type="tel"
+              value={form.phone}
+              onChange={(e) => setForm({ ...form, phone: e.target.value })}
+              maxLength={30}
+              className="mt-2 w-full border-b border-foreground/30 bg-transparent py-2 font-display text-xl outline-none focus:border-foreground"
+            />
+            {errors.phone && <p className="mt-1 text-xs text-destructive">{errors.phone}</p>}
+          </div>
+
+          <div>
+            <label htmlFor="subject" className="block text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              Subject
+            </label>
+            <input
+              id="subject"
+              type="text"
+              value={form.subject}
+              onChange={(e) => setForm({ ...form, subject: e.target.value })}
+              maxLength={150}
+              className="mt-2 w-full border-b border-foreground/30 bg-transparent py-2 font-display text-xl outline-none focus:border-foreground"
+            />
+            {errors.subject && <p className="mt-1 text-xs text-destructive">{errors.subject}</p>}
+          </div>
+
+
 
           <div>
             <label htmlFor="message" className="block text-xs uppercase tracking-[0.3em] text-muted-foreground">
