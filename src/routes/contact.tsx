@@ -30,6 +30,7 @@ const contactSchema = z.object({
 });
 
 function ContactPage() {
+  const { theme } = useTheme();
   const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
