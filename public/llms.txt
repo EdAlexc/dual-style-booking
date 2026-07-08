@@ -12,3 +12,4 @@ Studio MUA is the working name of a New York City makeup artist who splits her t
 - [Services](/services): Bridal, Editorial, Events & Red Carpet, and One-to-One Lessons with pricing and inclusions.
 - [Book](/book): Multi-step booking request form.
 - [Contact](/contact): Inquiry form and social links.
+- [Bridal Skin Prep](/bridal-skin-prep): A 6-week routine and morning-of ritual to prepare skin for wedding makeup.
