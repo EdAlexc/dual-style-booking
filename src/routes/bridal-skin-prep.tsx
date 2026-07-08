@@ -134,7 +134,7 @@ function BridalSkinPrepPage() {
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               to="/book"
-              search={{ service: "bridal" }}
+              search={{ service: "bridal", register: theme }}
               className="inline-block border border-foreground bg-foreground px-6 py-3 text-xs uppercase tracking-[0.3em] text-background hover:bg-transparent hover:text-foreground"
             >
               Book a bridal trial
