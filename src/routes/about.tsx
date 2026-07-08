@@ -14,7 +14,10 @@ export const Route = createFileRoute("/about")({
 
 const PRESS = ["Vogue", "Cereal", "NARS", "The Cut", "Vanity Fair", "British GQ"];
 
+import { useTheme } from "@/lib/theme";
+
 function AboutPage() {
+  const { theme } = useTheme();
   return (
     <main className="min-h-screen">
       <section className="mx-auto max-w-7xl px-6 pt-10 pb-8">
