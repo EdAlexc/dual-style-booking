@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { z } from "zod";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -12,7 +14,39 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100),
+  email: z.string().trim().email("Enter a valid email").max(255),
+  message: z.string().trim().min(1, "Message is required").max(1000),
+});
+
 function ContactPage() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const result = contactSchema.safeParse(form);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      for (const issue of result.error.issues) {
+        const key = issue.path[0];
+        if (typeof key === "string") fieldErrors[key] = issue.message;
+      }
+      setErrors(fieldErrors);
+      return;
+    }
+    setErrors({});
+    setStatus("sending");
+    // Basic mailto handoff — no backend wiring on this simple form.
+    const subject = encodeURIComponent(`Inquiry from ${result.data.name}`);
+    const body = encodeURIComponent(`${result.data.message}\n\n— ${result.data.name} (${result.data.email})`);
+    window.location.href = `mailto:hello@studio-mua.com?subject=${subject}&body=${body}`;
+    setStatus("sent");
+    setForm({ name: "", email: "", message: "" });
+  };
+
   return (
     <main className="min-h-screen">
       <section className="mx-auto max-w-3xl px-6 py-24">
@@ -43,10 +77,70 @@ function ContactPage() {
           </div>
         </dl>
 
+        <form onSubmit={onSubmit} noValidate className="mt-16 space-y-6">
+          <div>
+            <label htmlFor="name" className="block text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              maxLength={100}
+              className="mt-2 w-full border-b border-foreground/30 bg-transparent py-2 font-display text-xl outline-none focus:border-foreground"
+            />
+            {errors.name && <p className="mt-1 text-xs text-destructive">{errors.name}</p>}
+          </div>
+
+          <div>
+            <label htmlFor="email" className="block text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              maxLength={255}
+              className="mt-2 w-full border-b border-foreground/30 bg-transparent py-2 font-display text-xl outline-none focus:border-foreground"
+            />
+            {errors.email && <p className="mt-1 text-xs text-destructive">{errors.email}</p>}
+          </div>
+
+          <div>
+            <label htmlFor="message" className="block text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              Message
+            </label>
+            <textarea
+              id="message"
+              rows={5}
+              value={form.message}
+              onChange={(e) => setForm({ ...form, message: e.target.value })}
+              maxLength={1000}
+              className="mt-2 w-full border-b border-foreground/30 bg-transparent py-2 text-base outline-none focus:border-foreground resize-none"
+            />
+            {errors.message && <p className="mt-1 text-xs text-destructive">{errors.message}</p>}
+          </div>
+
+          <div className="flex items-center gap-6">
+            <button
+              type="submit"
+              disabled={status === "sending"}
+              className="inline-block border border-foreground bg-foreground px-6 py-3 text-xs uppercase tracking-[0.3em] text-background hover:bg-transparent hover:text-foreground disabled:opacity-50"
+            >
+              {status === "sending" ? "Sending…" : "Send message"}
+            </button>
+            {status === "sent" && (
+              <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Thanks — opening your email app.</p>
+            )}
+          </div>
+        </form>
+
         <div className="mt-16">
           <Link
             to="/book"
-            className="inline-block border border-foreground bg-foreground px-6 py-3 text-xs uppercase tracking-[0.3em] text-background hover:bg-transparent hover:text-foreground"
+            className="inline-block border border-foreground px-6 py-3 text-xs uppercase tracking-[0.3em] hover:bg-foreground hover:text-background"
           >
             Or book directly →
           </Link>
