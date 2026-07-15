@@ -4,10 +4,10 @@ import { AboutClient } from "./about-client";
 
 export const metadata: Metadata = {
   title: "About — Studio MUA",
-  description: "A New York-based makeup artist working across editorial, bridal, and campaign.",
+  description: "An award winning New York-based (travel avail) makeup artist working across editorial, bridal, and theatre.",
   openGraph: {
     title: "About — Studio MUA",
-    description: "A New York-based makeup artist working across editorial, bridal, and campaign.",
+    description: "An award winning New York-based (travel avail) makeup artist working across editorial, bridal, and theatre.",
   },
 };
 

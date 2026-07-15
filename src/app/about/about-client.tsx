@@ -12,23 +12,33 @@ export function AboutClient() {
       <section className="mx-auto max-w-7xl px-6 pt-10 pb-8">
         <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">About</p>
         <h1 className="mt-3 font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1]">
-          Two signatures. One eye for the frame.
+          Two signature styles - all-in-one makeup service.
         </h1>
       </section>
 
       <section className="mx-auto max-w-7xl px-6 pb-24">
         <div className="grid gap-10 md:grid-cols-2">
-          <p className="text-lg leading-relaxed text-foreground/85">
-            Studio MUA is the working name of a New York City makeup artist who
-            splits her time between editorial sets and private bridal clients.
-            Her work sits comfortably in two registers: <em>Glam</em> —
-            luminous, ivory, romantic — and <em>Bold</em> — graphic, sculptural,
-            unafraid of colour.
+          <p className="text-md leading-relaxed text-foreground/85">
+            Emmanuel De Jesus is an eclectic and versatile artist. Born and Raised in Puerto Rico, 
+            He moved to NYC over a decade ago to further his career as a Model, Dancer and Makeup 
+            Artist. As a dancer/model he has worked and toured around the world. Credits include 
+            Hermès, Elle UK, Swarovski. His career as a performer solidified his love for stage 
+            makeup artistry. 
+            
+            <br> He collaborates with his clients to individually tailor and design
+            beauty with makeup. He excels in perfecting and elevating the client's expectations 
+            with his artistry while staying true to their vision. Trends and Glam do not fit all 
+            when it comes to his makeup. He has the range to create flawless naked skin, as well 
+            as transformative theatrical gender-bending art. 
           </p>
-          <p className="text-lg leading-relaxed text-foreground/85">
-            Trained in Paris and mentored through London seasons, she brings a
-            camera-first sensibility to every face. Skin is the point of
-            departure; the rest is composition.
+          <p className="text-md leading-relaxed text-foreground/85">
+            <br> With over 15 years of experience, he has worked as an artist for Laura Mercier 
+            and MAC cosmetics in Manhattan's Flagship stores and 5th Avenue.  Every skin tone,  
+            all ages, every skin type, and many unconventional features have been through his chair. 
+            
+            <br> He specializes in creative makeup for stage, nightlife, and events working 
+            for New York's main entertainment events creatives like Black Haus, Screaming Queens, 
+            Astarte Creative, etc. 
           </p>
         </div>
 
