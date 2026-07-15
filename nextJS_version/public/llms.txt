@@ -1,0 +1,15 @@
+# Studio MUA
+
+> Editorial and bridal makeup artistry in New York City. Two registers — Glam (ivory, dewy, romantic) and Bold (noir, graphic, sculptural) — for weddings, editorial, campaign, and events.
+
+Studio MUA is the working name of a New York City makeup artist who splits her time between editorial sets and private bridal clients. Trained in Paris and mentored through London seasons, she brings a camera-first sensibility to every face.
+
+## Pages
+
+- [Home](/): Diagonal-split landing introducing the Glam and Bold registers.
+- [Work](/work): Selected editorial, campaign, and bridal portfolio, filterable by register.
+- [About](/about): Biography, philosophy, and selected press.
+- [Services](/services): Bridal, Editorial, Events & Red Carpet, and One-to-One Lessons with pricing and inclusions.
+- [Book](/book): Multi-step booking request form.
+- [Contact](/contact): Inquiry form and social links.
+- [Bridal Skin Prep](/bridal-skin-prep): A 6-week routine and morning-of ritual to prepare skin for wedding makeup.
