@@ -6,7 +6,7 @@ import { z } from "zod";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
+import { neon } from "@/lib/neon";
 import { SERVICES } from "@/lib/site-data";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
@@ -72,7 +72,7 @@ export function BookClient() {
     if (!date) return;
     setSubmitting(true);
     const ref = makeReference();
-    const { error } = await supabase.from("bookings").insert({
+    const { error } = await neon.from("bookings").insert({
       reference: ref,
       service: service.name,
       theme,
