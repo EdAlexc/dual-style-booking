@@ -25,18 +25,18 @@ export function AboutClient() {
             Hermès, Elle UK, Swarovski. His career as a performer solidified his love for stage 
             makeup artistry. 
             
-            <br> He collaborates with his clients to individually tailor and design
+            <br /> He collaborates with his clients to individually tailor and design
             beauty with makeup. He excels in perfecting and elevating the client's expectations 
             with his artistry while staying true to their vision. Trends and Glam do not fit all 
             when it comes to his makeup. He has the range to create flawless naked skin, as well 
             as transformative theatrical gender-bending art. 
           </p>
           <p className="text-md leading-relaxed text-foreground/85">
-            <br> With over 15 years of experience, he has worked as an artist for Laura Mercier 
+            <br /> With over 15 years of experience, he has worked as an artist for Laura Mercier 
             and MAC cosmetics in Manhattan's Flagship stores and 5th Avenue.  Every skin tone,  
             all ages, every skin type, and many unconventional features have been through his chair. 
             
-            <br> He specializes in creative makeup for stage, nightlife, and events working 
+            <br /> He specializes in creative makeup for stage, nightlife, and events working 
             for New York's main entertainment events creatives like Black Haus, Screaming Queens, 
             Astarte Creative, etc. 
           </p>
