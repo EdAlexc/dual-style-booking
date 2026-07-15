@@ -7,6 +7,9 @@ import { useTheme, type Theme } from "@/lib/theme";
 import glamPoster from "@/assets/glam-hero.jpg";
 import boldPoster from "@/assets/bold-hero.jpg";
 
+// "" locally / on Vercel; "/dual-style-booking" in the GitHub Pages build.
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 /**
  * Diagonal-split landing.
  * - Two panels clipped along the main diagonal (Glam top-left, Bold bottom-right).
@@ -67,7 +70,7 @@ export function HomeClient() {
         label="Glam"
         subtitle="Ivory · Dewy · Editorial"
         videoRef={glamVideo}
-        videoSrc="/videos/glam.mp4"
+        videoSrc={`${BASE_PATH}/videos/glam.mp4`}
         poster={glamPoster.src}
       />
 
@@ -85,7 +88,7 @@ export function HomeClient() {
         label="Bold"
         subtitle="Noir · Graphic · Editorial"
         videoRef={boldVideo}
-        videoSrc="/videos/bold.mp4"
+        videoSrc={`${BASE_PATH}/videos/bold.mp4`}
         poster={boldPoster.src}
       />
 

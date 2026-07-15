@@ -1,5 +1,8 @@
 import type { MetadataRoute } from "next";
 
+// Required for the GitHub Pages build (output: "export").
+export const dynamic = "force-static";
+
 const BASE_URL = "https://duel-style-booking.lovable.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
