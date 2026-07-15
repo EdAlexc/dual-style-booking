@@ -38,10 +38,8 @@ jobs:
         env:
           # Enables the static export + /dual-style-booking basePath in next.config.ts
           GITHUB_PAGES: 'true'
-          # Optional: set these repository secrets so the booking form can
-          # reach Supabase from the deployed site.
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+          # Neon + Mux config is read from the committed .env file (all values
+          # there are public client-side config, not secrets).
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

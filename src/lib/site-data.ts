@@ -53,8 +53,12 @@ export type WorkPiece = {
   location: string;
   year: number;
   credit: string;
+  /** Mux playback ID; when set, the card plays this video from Mux. */
+  muxPlaybackId?: string;
 };
 
+// To give a piece video, paste its Mux playback ID (from the Mux dashboard,
+// with MP4 support enabled on the asset), e.g. muxPlaybackId: "DS00Spx1CV...".
 export const WORK: WorkPiece[] = [
   { slug: "dune-daughter", title: "Dune, Daughter", theme: "bold", location: "Brooklyn", year: 2026, credit: "Photographer: L. Ito" },
   { slug: "ivory-in-june", title: "Ivory, In June", theme: "glam", location: "West Village", year: 2026, credit: "Photographer: A. Marín" },

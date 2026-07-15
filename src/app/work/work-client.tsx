@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 import { WORK } from "@/lib/site-data";
+import { muxMp4Url } from "@/lib/mux";
 import { useTheme } from "@/lib/theme";
 
 const filterSchema = z.enum(["all", "glam", "bold"]).catch("all");
@@ -56,6 +57,18 @@ export function WorkClient() {
                 w.theme === "bold" ? "work-card-bold" : "work-card-glam"
               }`}
             >
+              {/* Mux footage; the gradient behind stays visible until it loads */}
+              {w.muxPlaybackId && (
+                <video
+                  muted
+                  loop
+                  playsInline
+                  autoPlay
+                  preload="metadata"
+                  src={muxMp4Url(w.muxPlaybackId)}
+                  className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+                />
+              )}
               <div className="absolute inset-0 flex items-end p-6">
                 <span className="font-display text-4xl text-background mix-blend-difference">
                   {w.title}
