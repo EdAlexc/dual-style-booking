@@ -5,7 +5,6 @@
       "name": "nextjs-dev",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "cwd": "nextJS_version",
       "port": 3000,
       "autoPort": true
     }

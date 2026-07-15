@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useTheme, type Theme } from "@/lib/theme";
+import { heroVideoSrc } from "@/lib/mux";
 import glamPoster from "@/assets/glam-hero.jpg";
 import boldPoster from "@/assets/bold-hero.jpg";
 
@@ -15,8 +16,10 @@ import boldPoster from "@/assets/bold-hero.jpg";
  *   reveal the video and activates the corresponding site theme.
  * - Mobile: tap a panel to reveal.
  *
- * To use custom footage, drop MP4s at /public/videos/glam.mp4 and /public/videos/bold.mp4.
- * If missing, the poster image (rendered inside the <video> tag) stays visible.
+ * Footage streams from Mux: set NEXT_PUBLIC_MUX_PLAYBACK_ID_GLAM / _BOLD (see
+ * src/lib/mux.ts). Without playback IDs it falls back to local MP4s at
+ * /public/videos/{glam,bold}.mp4; if those are missing too, the poster image
+ * (rendered inside the <video> tag) stays visible.
  */
 export function HomeClient() {
   const { setTheme } = useTheme();
@@ -67,7 +70,7 @@ export function HomeClient() {
         label="Glam"
         subtitle="Ivory · Dewy · Editorial"
         videoRef={glamVideo}
-        videoSrc="/videos/glam.mp4"
+        videoSrc={heroVideoSrc("glam")}
         poster={glamPoster.src}
       />
 
@@ -85,7 +88,7 @@ export function HomeClient() {
         label="Bold"
         subtitle="Noir · Graphic · Editorial"
         videoRef={boldVideo}
-        videoSrc="/videos/bold.mp4"
+        videoSrc={heroVideoSrc("bold")}
         poster={boldPoster.src}
       />
 

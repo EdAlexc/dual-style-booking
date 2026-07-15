@@ -35,11 +35,16 @@ jobs:
 
       - name: Build project
         run: npm run build
+        env:
+          # Enables the static export + /dual-style-booking basePath in next.config.ts
+          GITHUB_PAGES: 'true'
+          # Neon + Mux config is read from the committed .env file (all values
+          # there are public client-side config, not secrets).
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist # Tells GitHub to look in Vite's output folder
+          path: ./out # Next.js static export output (output: "export")
 
       - name: Deploy to GitHub Pages
         id: deployment

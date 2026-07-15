@@ -30,7 +30,9 @@ export const metadata: Metadata = {
     google: "g9fClCG7Z0qRh2rPrFeBIbVcwNDRZp-JLshVeMu7fnI",
   },
   icons: {
-    icon: [{ url: "/favicon.ico", type: "image/x-icon" }],
+    // Next doesn't apply basePath to metadata URLs, so prefix it ourselves
+    // (empty outside the GitHub Pages build).
+    icon: [{ url: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/favicon.ico`, type: "image/x-icon" }],
   },
 };
 
