@@ -1,4 +1,7 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useTheme } from "@/lib/theme";
 
@@ -10,7 +13,7 @@ const nav = [
 ] as const;
 
 export function SiteHeader() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const pathname = usePathname();
   const { theme, toggle } = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -21,6 +24,9 @@ export function SiteHeader() {
 
   // Landing page owns the entire viewport interaction.
   if (pathname === "/") return null;
+
+  const activeClass = (to: string) =>
+    pathname === to ? "!text-accent" : "text-muted-foreground";
 
   const Wordmark = (
     <span className="font-display text-xl tracking-tight">
@@ -43,7 +49,7 @@ export function SiteHeader() {
           {Wordmark}
         </button>
         {/* Desktop: wordmark links home */}
-        <Link to="/" className="hidden md:inline-block">
+        <Link href="/" className="hidden md:inline-block">
           {Wordmark}
         </Link>
 
@@ -51,11 +57,8 @@ export function SiteHeader() {
           {nav.map((n) => (
             <Link
               key={n.to}
-              to={n.to}
-              search={n.to === "/work" ? { filter: theme } : undefined}
-              className="story-link uppercase tracking-widest hover:text-foreground"
-              activeProps={{ className: "!text-accent" }}
-              inactiveProps={{ className: "text-muted-foreground" }}
+              href={n.to === "/work" ? `/work?filter=${theme}` : n.to}
+              className={`story-link uppercase tracking-widest hover:text-foreground ${activeClass(n.to)}`}
             >
               {n.label}
             </Link>
@@ -70,8 +73,7 @@ export function SiteHeader() {
             {theme === "glam" ? "Glam" : "Bold"} · switch
           </button>
           <Link
-            to="/book"
-            search={{ register: theme }}
+            href={`/book?register=${theme}`}
             className="rounded-none border border-foreground bg-foreground px-4 py-2 text-xs uppercase tracking-[0.2em] text-background transition-colors hover:bg-transparent hover:text-foreground"
           >
             Book
@@ -87,21 +89,16 @@ export function SiteHeader() {
         >
           <nav className="mx-auto flex max-w-7xl flex-col px-6 py-4 text-sm">
             <Link
-              to="/"
-              className="py-2 uppercase tracking-widest"
-              activeProps={{ className: "!text-accent" }}
-              inactiveProps={{ className: "text-muted-foreground" }}
+              href="/"
+              className={`py-2 uppercase tracking-widest ${activeClass("/")}`}
             >
               Home
             </Link>
             {nav.map((n) => (
               <Link
                 key={n.to}
-                to={n.to}
-                search={n.to === "/work" ? { filter: theme } : undefined}
-                className="py-2 uppercase tracking-widest"
-                activeProps={{ className: "!text-accent" }}
-                inactiveProps={{ className: "text-muted-foreground" }}
+                href={n.to === "/work" ? `/work?filter=${theme}` : n.to}
+                className={`py-2 uppercase tracking-widest ${activeClass(n.to)}`}
               >
                 {n.label}
               </Link>

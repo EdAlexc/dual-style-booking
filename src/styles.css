@@ -158,3 +158,73 @@
 @utility animate-fade-in-up {
   animation: fade-in-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
+
+/* ------------------------------------------------------------------ */
+/* Component design tokens — edit values here instead of hunting for  */
+/* inline styles in components.                                       */
+/* ------------------------------------------------------------------ */
+:root {
+  /* Work page portfolio-card gradients */
+  --gradient-work-glam: linear-gradient(135deg, oklch(0.95 0.02 60), oklch(0.82 0.08 30));
+  --gradient-work-bold: linear-gradient(135deg, oklch(0.18 0.02 20), oklch(0.32 0.14 25));
+  /* Landing page: diagonal hairline between the two panels */
+  --gradient-diagonal-hairline: linear-gradient(
+    to top right,
+    transparent calc(50% - 0.5px),
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent calc(50% + 0.5px)
+  );
+  /* Landing page: vignette shown over a revealed panel */
+  --gradient-panel-vignette: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+@utility work-card-glam {
+  background: var(--gradient-work-glam);
+}
+
+@utility work-card-bold {
+  background: var(--gradient-work-bold);
+}
+
+@utility diagonal-hairline {
+  background: var(--gradient-diagonal-hairline);
+}
+
+@utility panel-vignette {
+  background: var(--gradient-panel-vignette);
+}
+
+/* Landing page: big panel labels, one register per panel */
+@utility panel-label-glam {
+  font-family: "Playfair Display", ui-serif, Georgia, serif;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  font-weight: 400;
+}
+
+@utility panel-label-bold {
+  font-family: "Archivo", "Inter", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* Book page: register-picker cards (share the work-card gradients) */
+@utility register-card-glam {
+  background: var(--gradient-work-glam);
+  color: oklch(0.2 0.02 30);
+}
+
+@utility register-card-bold {
+  background: var(--gradient-work-bold);
+  color: oklch(0.98 0.01 60);
+}
+
+/* Font-family-only helpers — weight/case/tracking stay with the caller */
+@utility font-family-glam {
+  font-family: "Playfair Display", ui-serif, Georgia, serif;
+}
+
+@utility font-family-bold {
+  font-family: "Archivo", "Inter", ui-sans-serif, system-ui, sans-serif;
+}
