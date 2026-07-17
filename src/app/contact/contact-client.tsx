@@ -55,15 +55,17 @@ export function ContactClient() {
       <section className="mx-auto max-w-7xl px-6 pt-10 pb-8">
         <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Contact</p>
         <h1 className="mt-3 font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1]">
-          Say hello.
+          Contact Emmanuel
         </h1>
         <p className="mt-6 max-w-xl text-lg text-foreground/85">
-          For bookings and press inquiries. Replies within two business days.
+          Use this form mainly for press and special inquiries.
+          For bookings, please request a quote and date via the "Book Now" button.
         </p>
       </section>
 
-      <section className="mx-auto max-w-3xl px-6 pb-24">
-        <form onSubmit={onSubmit} noValidate className="space-y-6">
+      <section className="mx-auto max-w-7xl px-6 pb-24">
+        <div className="max-w-2xl">
+          <form onSubmit={onSubmit} noValidate className="space-y-6">
 
           <div>
             <label htmlFor="name" className="block text-xs uppercase tracking-[0.3em] text-muted-foreground">
@@ -154,24 +156,27 @@ export function ContactClient() {
               <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Thanks — opening your email app.</p>
             )}
           </div>
-        </form>
+          </form>
+        </div>
 
-        <dl className="mt-16 grid gap-8 sm:grid-cols-2">
+        <dl className="mt-16 grid gap-8 md:grid-cols-3 md:[&>*]:text-center">
           <div>
             <dt className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Email</dt>
-            <dd className="mt-2 font-display text-2xl">hello@studio-mua.com</dd>
-          </div>
-          <div>
-            <dt className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Studio</dt>
-            <dd className="mt-2 font-display text-2xl">New York, NY</dd>
+            <a href="mailto:emjoedasilva@outlook.com" className="mt-2 font-display text-xl hover:underline">
+              emjoedasilva@outlook.com
+            </a>
           </div>
           <div>
             <dt className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Instagram</dt>
-            <dd className="mt-2 font-display text-2xl">@studio.mua</dd>
+            <a href="https://www.instagram.com/muabyedj/" target="_blank" className="mt-2 font-display text-xl hover:underline">
+              @muabyedj
+            </a>
           </div>
           <div>
-            <dt className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Representation</dt>
-            <dd className="mt-2 font-display text-2xl">The Wall Group</dd>
+            <dt className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Tel</dt>
+            <a href="tel:+19179750060" className="mt-2 font-display text-xl hover:underline">
+              +1 (917)-975-0060
+            </a>
           </div>
         </dl>
 

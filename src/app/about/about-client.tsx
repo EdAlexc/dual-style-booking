@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useTheme } from "@/lib/theme";
 
-const PRESS = ["Vogue", "Cereal", "NARS", "The Cut", "Vanity Fair", "British GQ"];
+const PRESS = ["Hermès", "Elle UK", "Swarovski", "wet n' wild Beauty", "Laura Mercier", "MAC", "Black Haus", "Astarte Creative"];
 
 export function AboutClient() {
   const { theme } = useTheme();
@@ -49,7 +49,7 @@ export function AboutClient() {
         </div>
 
         <div className="mt-16 border-t border-border pt-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Selected press</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Brand collaborations and partnerships</p>
           <ul className="mt-6 flex flex-wrap gap-x-10 gap-y-4 font-display text-2xl text-foreground/70">
             {PRESS.map((p) => <li key={p}>{p}</li>)}
           </ul>
