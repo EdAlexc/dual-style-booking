@@ -70,7 +70,7 @@ export function SiteHeader() {
             aria-label={`Switch to ${theme === "glam" ? "Bold" : "Glam"} theme`}
             className="hidden text-xs uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground sm:inline"
           >
-            {theme === "glam" ? "Glam" : "Bold"} · switch
+            {theme === "glam" ? "Glam" : "Bold"} · click to switch
           </button>
           <Link
             href={`/book?register=${theme}`}

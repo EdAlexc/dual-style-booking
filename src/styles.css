@@ -73,19 +73,19 @@
   --card-foreground: oklch(1 0 0);
   --popover: oklch(0.17 0.02 200);
   --popover-foreground: oklch(1 0 0);
-  --primary: #06fcde;
+  --primary: oklch(88.81% 0.1608 179.96);
   --primary-foreground: oklch(0.13 0.008 200);
   --secondary: oklch(0.22 0.03 200);
   --secondary-foreground: oklch(1 0 0);
   --muted: oklch(0.22 0.03 200);
   --muted-foreground: oklch(0.78 0.02 200);
-  --accent: #06fcde;
+  --accent: oklch(88.81% 0.1608 179.96);
   --accent-foreground: oklch(0.13 0.008 200);
   --destructive: oklch(0.62 0.24 25);
   --destructive-foreground: oklch(0.98 0.01 85);
   --border: oklch(0.32 0.04 200);
   --input: oklch(0.32 0.04 200);
-  --ring: #06fcde;
+  --ring: oklch(88.81% 0.1608 179.96);
   --font-display: "Archivo", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
@@ -165,8 +165,8 @@
 /* ------------------------------------------------------------------ */
 :root {
   /* Work page portfolio-card gradients */
-  --gradient-work-glam: linear-gradient(135deg, oklch(0.95 0.02 60), oklch(0.82 0.08 30));
-  --gradient-work-bold: linear-gradient(135deg, oklch(0.18 0.02 20), oklch(0.32 0.14 25));
+  --gradient-work-glam: linear-gradient(135deg, oklch(0.97 0.012 85), oklch(94.042% 0.02894 82.572));
+  --gradient-work-bold: linear-gradient(135deg, oklch(0.13 0.008 200), oklch(26.769% 0.04626 185.591));
   /* Landing page: diagonal hairline between the two panels */
   --gradient-diagonal-hairline: linear-gradient(
     to top right,

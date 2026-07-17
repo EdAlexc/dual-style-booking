@@ -115,8 +115,8 @@ export function HomeClient() {
       {/* Hint */}
       <div className="pointer-events-none absolute inset-x-0 bottom-6 z-40 flex justify-center text-[10px] uppercase tracking-[0.4em] text-white/60 mix-blend-difference">
         {hovered
-          ? `${hovered} · hover the other side to switch`
-          : "Hover a side to reveal · tap on mobile"}
+          ? `${hovered} · click to explore relevant work`
+          : "Hover to a side to reveal · tap on mobile"}
       </div>
 
       {/* Skip to explore */}
@@ -263,7 +263,7 @@ function Panel(p: PanelProps) {
         }`}
       >
         <p className="text-[10px] uppercase tracking-[0.4em] text-white/70">
-          {p.active ? "Now viewing" : p.revealed ? "Revealed" : "Hover to reveal"}
+          {p.active ? "Now viewing" : "Hover to reveal"}
         </p>
         <p
           className={`mt-3 text-[clamp(3.5rem,10vw,9rem)] leading-none text-white ${

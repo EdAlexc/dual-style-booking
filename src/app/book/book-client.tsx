@@ -99,7 +99,7 @@ export function BookClient() {
       <section className="mx-auto max-w-7xl px-6 pt-10 pb-8">
         <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
           {step === 0
-            ? "Book · Choose your register"
+            ? "Book · Choose your Style"
             : `Book · Step ${step === 4 ? "✓" : step} of 3`}
         </p>
         <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,4rem)] leading-[1]">
@@ -111,9 +111,10 @@ export function BookClient() {
         </h1>
         {step === 0 && (
           <p className="mt-4 max-w-2xl text-foreground/80">
-            Two signatures. Pick the register you want on the day —
-            you can still refine at your consultation. This choice sets
-            the tone for the rest of the booking.
+            Two signatures styles, pick the one you think best fits your needs. This choice 
+            sets the tone for the rest of the booking, but no worries 
+            if you're not sure - you can still refine or change your needs during 
+            your consultation. 
           </p>
         )}
       </section>
@@ -126,12 +127,12 @@ export function BookClient() {
                 onClick={() => pickRegister("glam")}
                 className="group register-card-glam border border-border p-8 text-left transition-colors hover:border-foreground"
               >
-                <p className="text-xs uppercase tracking-[0.3em] opacity-70">Register 01</p>
+                <p className="text-xs uppercase tracking-[0.3em] opacity-70">Style 01</p>
                 <p className="mt-3 font-display font-family-glam text-5xl leading-none">
                   Glam
                 </p>
                 <p className="mt-4 text-sm opacity-85">
-                  Ivory · Dewy · Romantic. Luminous skin, soft
+                  Dewy & Natural - think Bridal. Click here if you're looking for luminous skin, soft
                   sculpted eyes, camera-first bridal and editorial.
                 </p>
                 <p className="mt-6 text-xs uppercase tracking-[0.3em] opacity-70">
@@ -143,13 +144,13 @@ export function BookClient() {
                 onClick={() => pickRegister("bold")}
                 className="group register-card-bold border border-border p-8 text-left transition-colors hover:border-foreground"
               >
-                <p className="text-xs uppercase tracking-[0.3em] opacity-70">Register 02</p>
+                <p className="text-xs uppercase tracking-[0.3em] opacity-70">Style 02</p>
                 <p className="mt-3 font-display font-family-bold text-5xl font-bold leading-none uppercase tracking-[0.02em]">
                   Bold
                 </p>
                 <p className="mt-4 text-sm opacity-85">
-                  Noir · Graphic · Sculptural. High-contrast colour,
-                  editorial edge, red-carpet and campaign.
+                  Graphic & Theatrical- think Stage. Click here if you're looking for high-contrast colour,
+                  editorial edge, red-carpet and theatre/performances.
                 </p>
                 <p className="mt-6 text-xs uppercase tracking-[0.3em] opacity-70">
                   Choose Bold →
