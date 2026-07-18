@@ -3,10 +3,10 @@ import type { Metadata } from "next";
 import { ContactClient } from "./contact-client";
 
 export const metadata: Metadata = {
-  title: "Contact — Studio MUA",
+  title: "Contact — Emmanuel de Jesus MUA",
   description: "Get in touch to inquire about editorial, bridal, or event bookings.",
   openGraph: {
-    title: "Contact — Studio MUA",
+    title: "Contact — Emmanuel de Jesus MUA",
     description: "Get in touch to inquire about editorial, bridal, or event bookings.",
   },
 };

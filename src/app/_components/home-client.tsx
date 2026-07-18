@@ -55,7 +55,7 @@ export function HomeClient() {
 
   return (
     <main className="relative h-screen w-screen overflow-hidden bg-black text-white">
-      <h1 className="sr-only">Studio MUA — Editorial and Bridal Makeup Artist in New York City</h1>
+      <h1 className="sr-only">Emmanuel de Jesus MUA — Editorial and Bridal Makeup Artist in New York City</h1>
       {/* GLAM — top-left triangle */}
       <Panel
         theme="glam"
@@ -101,7 +101,7 @@ export function HomeClient() {
       {/* Top brand + meta bar */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-40 flex items-center justify-between px-6 py-6 text-xs uppercase tracking-[0.25em] text-white/85 mix-blend-difference">
         <span className="font-display text-lg normal-case tracking-tight">
-          Studio <span className="text-white">MUA</span>
+          Emmanuel de Jesus <span className="text-white">MUA</span>
         </span>
         <span className="hidden sm:inline">New York City · 2026</span>
         <Link

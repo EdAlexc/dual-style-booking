@@ -4,10 +4,10 @@ import { SERVICES } from "@/lib/site-data";
 import { ServicesClient } from "./services-client";
 
 export const metadata: Metadata = {
-  title: "Services & Pricing — Studio MUA",
+  title: "Services & Pricing — Emmanuel de Jesus MUA",
   description: "Bridal, editorial, events, and one-to-one lessons. Transparent pricing and inclusions.",
   openGraph: {
-    title: "Services & Pricing — Studio MUA",
+    title: "Services & Pricing — Emmanuel de Jesus MUA",
     description: "Bridal, editorial, events, and one-to-one lessons.",
   },
 };
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const servicesJsonLd = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "Studio MUA Services",
+  name: "Emmanuel de Jesus Services",
   itemListElement: SERVICES.map((s, i) => ({
     "@type": "ListItem",
     position: i + 1,
@@ -23,7 +23,7 @@ const servicesJsonLd = {
       "@type": "Service",
       name: s.name,
       description: s.description,
-      provider: { "@type": "Organization", name: "Studio MUA" },
+      provider: { "@type": "Organization", name: "Emmanuel de Jesus" },
       offers: { "@type": "Offer", price: s.price, priceCurrency: "USD" },
     },
   })),

@@ -3,7 +3,7 @@ import { HomeClient } from "./_components/home-client";
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: "Studio MUA",
+  name: "Emmanuel de Jesus MUA",
   description:
     "Editorial and bridal makeup artistry in New York City. Glam and Bold registers for weddings, editorial, campaign, and events.",
   url: "https://duel-style-booking.lovable.app",

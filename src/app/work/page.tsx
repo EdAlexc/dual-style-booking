@@ -5,10 +5,10 @@ import { WORK } from "@/lib/site-data";
 import { WorkClient } from "./work-client";
 
 export const metadata: Metadata = {
-  title: "Work — Studio MUA",
-  description: "Selected editorial, campaign, and bridal makeup by Studio MUA.",
+  title: "Work — Emmanuel de Jesus MUA",
+  description: "Selected editorial, campaign, and bridal makeup by Emmanuel de Jesus.",
   openGraph: {
-    title: "Work — Studio MUA",
+    title: "Work — Emmanuel de Jesus MUA",
     description: "Selected editorial, campaign, and bridal makeup.",
   },
 };
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 const collectionJsonLd = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  name: "Selected Work — Studio MUA",
+  name: "Selected Work — Emmanuel de Jesus",
   description: "Editorial, campaign, and bridal makeup portfolio.",
   hasPart: WORK.map((w) => ({
     "@type": "CreativeWork",

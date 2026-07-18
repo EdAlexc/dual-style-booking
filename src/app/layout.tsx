@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { Providers } from "@/components/providers";
 import "../styles.css";
 
-const SITE_TITLE = "Studio MUA — Editorial Makeup Artistry | Book a Session";
+const SITE_TITLE = "Emmanuel de Jesus MUA — Book a Session";
 const SITE_DESCRIPTION =
   "Editorial and bridal makeup artistry. Book Glam or Bold sessions with a New York-based makeup artist.";
 const OG_IMAGE =
@@ -13,7 +13,7 @@ const OG_IMAGE =
 export const metadata: Metadata = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
-  authors: [{ name: "Studio MUA" }],
+  authors: [{ name: "Emmanuel de Jesus MUA" }],
   openGraph: {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
@@ -42,7 +42,7 @@ const organizationJsonLd = {
     {
       "@type": "Organization",
       "@id": "https://duel-style-booking.lovable.app/#organization",
-      name: "Studio MUA",
+      name: "Emmanuel de Jesus MUA",
       url: "https://duel-style-booking.lovable.app",
       description: "Editorial and bridal makeup artistry in New York City.",
     },
@@ -50,7 +50,7 @@ const organizationJsonLd = {
       "@type": "WebSite",
       "@id": "https://duel-style-booking.lovable.app/#website",
       url: "https://duel-style-booking.lovable.app",
-      name: "Studio MUA",
+      name: "Emmanuel de Jesus MUA",
       publisher: { "@id": "https://duel-style-booking.lovable.app/#organization" },
     },
   ],

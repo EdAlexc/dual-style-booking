@@ -30,7 +30,7 @@ export function SiteHeader() {
 
   const Wordmark = (
     <span className="font-display text-xl tracking-tight">
-      Studio <span className="text-accent">MUA</span>
+      Emmanuel de Jesus <span className="text-accent">MUA</span>
     </span>
   );
 
