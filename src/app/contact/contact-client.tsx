@@ -159,7 +159,7 @@ export function ContactClient() {
           </form>
         </div>
 
-        <dl className="mt-16 grid gap-8 md:grid-cols-3 md:[&>*]:text-center">
+        <dl className="mt-16 grid gap-8 md:grid-cols-3 md:[&>*]:text-start">
           <div>
             <dt className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Email</dt>
             <a href="mailto:emjoedasilva@outlook.com" className="mt-2 font-display text-xl hover:underline">

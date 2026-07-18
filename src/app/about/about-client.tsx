@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useTheme } from "@/lib/theme";
+import ProfilePic from "@/assets/tito-profile-picture-cropped.jpg";
 
 const PRESS = ["Hermès", "Elle UK", "Swarovski", "wet n' wild Beauty", "Laura Mercier", "MAC", "Black Haus", "Astarte Creative"];
 
@@ -17,30 +18,39 @@ export function AboutClient() {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 pb-24">
-        <div className="grid gap-10 md:grid-cols-2">
+        <div className="grid gap-10 md:grid-cols-[1.2fr_0.8fr] md:items-start">
           <div className="space-y-4">
-            <p className="text-md leading-relaxed text-foreground/85">
-              Emmanuel De Jesus is an eclectic and versatile artist. Born and Raised in Puerto Rico,
-              He moved to NYC over a decade ago to further his career as a Model, Dancer and Makeup
-              Artist. As a dancer/model he has worked and toured around the world. Credits include
-              Hermès, Elle UK, Swarovski. His career as a performer solidified his love for stage
-              makeup artistry.
-            </p>
-            <p className="text-md leading-relaxed text-foreground/85">
-              He collaborates with his clients to individually tailor and design
-              beauty with makeup. He excels in perfecting and elevating the client's expectations
-              with his artistry while staying true to their vision. Trends and Glam do not fit all
-              when it comes to his makeup. He has the range to create flawless naked skin, as well
-              as transformative theatrical gender-bending art.
-            </p>
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
+              <img
+                src={ProfilePic.src}
+                alt="Emmanuel De Jesus"
+                className="mt-1.5 h-full max-h-[400px] w-full max-w-[320px] shrink-0 rounded-lg object-cover shadow-sm sm:w-[320px]"
+              />
+              <div className="space-y-4">
+                <p className="text-sm leading-relaxed text-foreground/85">
+                  Emmanuel De Jesus is an eclectic and versatile artist. Born and Raised in Puerto Rico,
+                  He moved to NYC over a decade ago to further his career as a Model, Dancer and Makeup
+                  Artist. As a dancer/model he has worked and toured around the world. Credits include
+                  Hermès, Elle UK, Swarovski. His career as a performer solidified his love for stage
+                  makeup artistry.
+                </p>
+                <p className="text-sm leading-relaxed text-foreground/85">
+                  He collaborates with his clients to individually tailor and design
+                  beauty with makeup. He excels in perfecting and elevating the client's expectations
+                  with his artistry while staying true to their vision. Trends and Glam do not fit all
+                  when it comes to his makeup. He has the range to create flawless naked skin, as well
+                  as transformative theatrical gender-bending art.
+                </p>
+              </div>
+            </div>
           </div>
           <div className="space-y-4">
-            <p className="text-md leading-relaxed text-foreground/85">
+            <p className="text-sm leading-relaxed text-foreground/85">
               With over 15 years of experience, he has worked as an artist for Laura Mercier
               and MAC cosmetics in Manhattan's Flagship stores and 5th Avenue. Every skin tone,
               all ages, every skin type, and many unconventional features have been through his chair.
             </p>
-            <p className="text-md leading-relaxed text-foreground/85">
+            <p className="text-sm leading-relaxed text-foreground/85">
               He specializes in creative makeup for stage, nightlife, and events working
               for New York's main entertainment events creatives like Black Haus, Screaming Queens,
               Astarte Creative, etc.
