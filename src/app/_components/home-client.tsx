@@ -233,6 +233,7 @@ type PanelProps = {
 
 function Panel(p: PanelProps) {
   const press = useRef<{ t: number; x: number; y: number } | null>(null);
+  const [videoReady, setVideoReady] = useState(false);
 
   // Touch: press-and-hold reveals the panel; a quick tap opens its work page.
   const touchHandlers = {
@@ -284,7 +285,19 @@ function Panel(p: PanelProps) {
       }`}
       style={{ clipPath: p.clip }}
     >
-      {/* Video / poster layer */}
+      {/* Poster image — always rendered as the base reveal layer so a photo
+          shows on every device even when the hero video is unavailable (no Mux
+          ID configured / offline). Relying on the <video> poster alone fails on
+          mobile browsers, which clear the poster and paint a blank frame once
+          .play() is called on a video whose source can't load. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-cover bg-center ken-burns"
+        style={{ backgroundImage: `url(${p.poster})` }}
+      />
+
+      {/* Video layer — fades in over the poster only once it can actually
+          play, so a broken/missing source never hides the photo. */}
       <video
         ref={p.videoRef}
         muted
@@ -293,7 +306,11 @@ function Panel(p: PanelProps) {
         autoPlay
         preload="metadata"
         poster={p.poster}
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover ken-burns"
+        onLoadedData={() => setVideoReady(true)}
+        onCanPlay={() => setVideoReady(true)}
+        className={`pointer-events-none absolute inset-0 h-full w-full object-cover ken-burns transition-opacity duration-700 ${
+          videoReady ? "opacity-100" : "opacity-0"
+        }`}
       >
         <source src={p.videoSrc} type="video/mp4" />
       </video>
