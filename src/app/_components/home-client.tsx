@@ -27,8 +27,21 @@ export function HomeClient() {
   const [hovered, setHovered] = useState<Theme | null>(null);
   const [revealed, setRevealed] = useState<Set<Theme>>(new Set());
   const [explorePicker, setExplorePicker] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
   const glamVideo = useRef<HTMLVideoElement>(null);
   const boldVideo = useRef<HTMLVideoElement>(null);
+
+  // Detect genuine touch devices (coarse pointer, no hover) so we can swap
+  // hover-to-reveal for press-and-hold. A desktop/laptop window shrunk to
+  // phone dimensions still reports a fine pointer with hover, so it keeps the
+  // hover interaction — this only flips on real touchscreens.
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: none) and (pointer: coarse)");
+    const update = () => setIsTouch(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   // Sync active theme with the currently focused/hovered panel.
   useEffect(() => {
@@ -59,6 +72,7 @@ export function HomeClient() {
       {/* GLAM — top-left triangle */}
       <Panel
         theme="glam"
+        isTouch={isTouch}
         active={hovered === "glam"}
         revealed={revealed.has("glam")}
         onActivate={() => activate("glam")}
@@ -77,6 +91,7 @@ export function HomeClient() {
       {/* BOLD — bottom-right triangle */}
       <Panel
         theme="bold"
+        isTouch={isTouch}
         active={hovered === "bold"}
         revealed={revealed.has("bold")}
         onActivate={() => activate("bold")}
@@ -115,8 +130,10 @@ export function HomeClient() {
       {/* Hint */}
       <div className="pointer-events-none absolute inset-x-0 bottom-20 z-40 flex justify-center px-6 text-center text-[10px] uppercase tracking-[0.25em] text-white/60 mix-blend-difference sm:bottom-6 sm:px-0 sm:tracking-[0.4em]">
         {hovered
-          ? `${hovered} · click to explore relevant work`
-          : "Hover to a side to reveal · tap on mobile"}
+          ? `${hovered} · ${isTouch ? "release, or tap to open" : "click to explore relevant work"}`
+          : isTouch
+            ? "Press & hold a side to reveal · tap to open"
+            : "Hover to a side to reveal"}
       </div>
 
       {/* Skip to explore */}
@@ -198,6 +215,7 @@ export function HomeClient() {
 
 type PanelProps = {
   theme: Theme;
+  isTouch: boolean;
   active: boolean;
   revealed: boolean;
   onActivate: () => void;
@@ -214,16 +232,56 @@ type PanelProps = {
 };
 
 function Panel(p: PanelProps) {
+  const press = useRef<{ t: number; x: number; y: number } | null>(null);
+
+  // Touch: press-and-hold reveals the panel; a quick tap opens its work page.
+  const touchHandlers = {
+    onPointerDown: (e: React.PointerEvent) => {
+      press.current = { t: Date.now(), x: e.clientX, y: e.clientY };
+      p.onActivate();
+    },
+    onPointerUp: (e: React.PointerEvent) => {
+      const start = press.current;
+      press.current = null;
+      p.onDeactivate();
+      const quickTap =
+        !!start &&
+        Date.now() - start.t < 350 &&
+        Math.hypot(e.clientX - start.x, e.clientY - start.y) < 12;
+      if (quickTap) p.onNavigate();
+    },
+    onPointerLeave: () => {
+      press.current = null;
+      p.onDeactivate();
+    },
+    onPointerCancel: () => {
+      press.current = null;
+      p.onDeactivate();
+    },
+    // Suppress the long-press context menu / image callout on mobile.
+    onContextMenu: (e: React.MouseEvent) => e.preventDefault(),
+  };
+
+  // Pointer devices: hover reveals; click opens the work page.
+  const hoverHandlers = {
+    onMouseEnter: p.onActivate,
+    onMouseLeave: p.onDeactivate,
+    onFocus: p.onActivate,
+    onBlur: p.onDeactivate,
+    onClick: () => {
+      p.onActivate();
+      p.onNavigate();
+    },
+  };
+
   return (
     <button
       type="button"
-      onMouseEnter={p.onActivate}
-      onMouseLeave={p.onDeactivate}
-      onFocus={p.onActivate}
-      onBlur={p.onDeactivate}
-      onClick={() => { p.onActivate(); p.onNavigate(); }}
+      {...(p.isTouch ? touchHandlers : hoverHandlers)}
       aria-label={`View ${p.label} work — makeup in the ${p.label.toLowerCase()} register`}
-      className={`group absolute inset-0 z-10 flex ${p.align} cursor-pointer overflow-hidden text-left focus:outline-none`}
+      className={`group absolute inset-0 z-10 flex ${p.align} cursor-pointer overflow-hidden text-left focus:outline-none ${
+        p.isTouch ? "select-none [touch-action:none] [-webkit-touch-callout:none]" : ""
+      }`}
       style={{ clipPath: p.clip }}
     >
       {/* Video / poster layer */}
@@ -263,7 +321,7 @@ function Panel(p: PanelProps) {
         }`}
       >
         <p className="text-[10px] uppercase tracking-[0.4em] text-white/70">
-          {p.active ? "Now viewing" : "Hover to reveal"}
+          {p.active ? "Now viewing" : p.isTouch ? "Press & hold" : "Hover to reveal"}
         </p>
         <p
           className={`mt-3 text-[clamp(3.5rem,10vw,9rem)] leading-none text-white ${
