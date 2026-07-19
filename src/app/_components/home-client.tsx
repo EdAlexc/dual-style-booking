@@ -113,7 +113,7 @@ export function HomeClient() {
       </div>
 
       {/* Hint */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-6 z-40 flex justify-center text-[10px] uppercase tracking-[0.4em] text-white/60 mix-blend-difference">
+      <div className="pointer-events-none absolute inset-x-0 bottom-20 z-40 flex justify-center px-6 text-center text-[10px] uppercase tracking-[0.25em] text-white/60 mix-blend-difference sm:bottom-6 sm:px-0 sm:tracking-[0.4em]">
         {hovered
           ? `${hovered} · click to explore relevant work`
           : "Hover to a side to reveal · tap on mobile"}
@@ -123,7 +123,7 @@ export function HomeClient() {
       <button
         type="button"
         onClick={() => setExplorePicker(true)}
-        className="absolute bottom-6 right-6 z-40 border border-white/40 bg-black/40 px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-white/80 backdrop-blur-sm transition-colors hover:bg-white hover:text-black"
+        className="absolute bottom-6 left-1/2 z-40 -translate-x-1/2 border border-white/40 bg-black/40 px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-white/80 backdrop-blur-sm transition-colors hover:bg-white hover:text-black sm:left-auto sm:right-6 sm:translate-x-0"
       >
         Explore work →
       </button>
@@ -258,7 +258,7 @@ function Panel(p: PanelProps) {
 
       {/* Label */}
       <div
-        className={`relative z-20 max-w-[42vw] px-8 py-12 ${p.textAnchor} absolute transition-all duration-700 ${
+        className={`relative z-20 max-w-[62vw] px-6 py-10 sm:max-w-[42vw] sm:px-8 sm:py-12 ${p.textAnchor} absolute transition-all duration-700 ${
           p.active ? "opacity-100 translate-y-0" : "opacity-70 translate-y-1"
         }`}
       >
