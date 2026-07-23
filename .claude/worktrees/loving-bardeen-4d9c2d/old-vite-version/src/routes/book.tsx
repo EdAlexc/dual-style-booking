@@ -1,12 +1,10 @@
-"use client";
-
-import { useSearchParams } from "next/navigation";
+import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { z } from "zod";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { toast } from "sonner";
-import { submitBooking } from "@/lib/platform";
+import { supabase } from "@/integrations/supabase/client";
 import { SERVICES } from "@/lib/site-data";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
@@ -17,12 +15,23 @@ import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-const searchSchema = z
-  .object({
-    service: z.string().optional(),
-    register: z.enum(["glam", "bold"]).optional(),
-  })
-  .catch({});
+const searchSchema = z.object({
+  service: z.string().optional(),
+  register: z.enum(["glam", "bold"]).optional(),
+});
+
+export const Route = createFileRoute("/book")({
+  validateSearch: (s) => searchSchema.parse(s),
+  head: () => ({
+    meta: [
+      { title: "Book a Session — Studio MUA" },
+      { name: "description", content: "Request a Glam or Bold makeup session. Bridal, editorial, events, and lessons." },
+      { property: "og:title", content: "Book a Session — Studio MUA" },
+      { property: "og:description", content: "Request a Glam or Bold makeup session." },
+    ],
+  }),
+  component: BookPage,
+});
 
 const TIME_SLOTS = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00"];
 
@@ -32,16 +41,8 @@ function makeReference() {
   return "SM-" + Math.random().toString(36).slice(2, 8).toUpperCase();
 }
 
-export function BookClient() {
-  const searchParams = useSearchParams();
-  const initial = useMemo(
-    () =>
-      searchSchema.parse({
-        service: searchParams.get("service") ?? undefined,
-        register: searchParams.get("register") ?? undefined,
-      }),
-    [searchParams],
-  );
+function BookPage() {
+  const initial = Route.useSearch();
   const { theme, setTheme } = useTheme();
 
   const [step, setStep] = useState<Step>(initial.register ? 1 : 0);
@@ -72,23 +73,22 @@ export function BookClient() {
     if (!date) return;
     setSubmitting(true);
     const ref = makeReference();
-    // Bookings go to the clientflow platform (/api/v1/bookings) instead of
-    // this site's own Neon project — see src/lib/platform.ts.
-    const result = await submitBooking({
+    const { error } = await supabase.from("bookings").insert({
       reference: ref,
       service: service.name,
-      style: theme,
-      eventDate: format(date, "yyyy-MM-dd"),
-      eventTime: time,
-      fullName,
+      theme,
+      event_date: format(date, "yyyy-MM-dd"),
+      event_time: time,
+      full_name: fullName,
       email,
       phone: phone || null,
       location: location || null,
       notes: notes || null,
     });
     setSubmitting(false);
-    if (!result.ok) {
-      toast.error(result.error ?? "We couldn't submit your request. Please try again.");
+    if (error) {
+      toast.error("We couldn't submit your request. Please try again.");
+      console.error(error);
       return;
     }
     setReference(ref);
@@ -100,7 +100,7 @@ export function BookClient() {
       <section className="mx-auto max-w-7xl px-6 pt-10 pb-8">
         <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
           {step === 0
-            ? "Book · Choose your Style"
+            ? "Book · Choose your register"
             : `Book · Step ${step === 4 ? "✓" : step} of 3`}
         </p>
         <h1 className="mt-3 font-display text-[clamp(2.25rem,5vw,4rem)] leading-[1]">
@@ -112,10 +112,9 @@ export function BookClient() {
         </h1>
         {step === 0 && (
           <p className="mt-4 max-w-2xl text-foreground/80">
-            Two signatures styles, pick the one you think best fits your needs. This choice 
-            sets the tone for the rest of the booking, but no worries 
-            if you're not sure - you can still refine or change your needs during 
-            your consultation. 
+            Two signatures. Pick the register you want on the day —
+            you can still refine at your consultation. This choice sets
+            the tone for the rest of the booking.
           </p>
         )}
       </section>
@@ -126,14 +125,22 @@ export function BookClient() {
             <div className="grid gap-4 sm:grid-cols-2">
               <button
                 onClick={() => pickRegister("glam")}
-                className="group register-card-glam border border-border p-8 text-left transition-colors hover:border-foreground"
+                className="group border border-border p-8 text-left transition-colors hover:border-foreground"
+                style={{
+                  background:
+                    "linear-gradient(135deg, oklch(0.95 0.02 60), oklch(0.82 0.08 30))",
+                  color: "oklch(0.2 0.02 30)",
+                }}
               >
-                <p className="text-xs uppercase tracking-[0.3em] opacity-70">Style 01</p>
-                <p className="mt-3 font-display font-family-glam text-5xl leading-none">
+                <p className="text-xs uppercase tracking-[0.3em] opacity-70">Register 01</p>
+                <p
+                  className="mt-3 font-display text-5xl leading-none"
+                  style={{ fontFamily: '"Playfair Display", ui-serif, Georgia, serif' }}
+                >
                   Glam
                 </p>
                 <p className="mt-4 text-sm opacity-85">
-                  Dewy & Natural - think Bridal. Click here if you're looking for luminous skin, soft
+                  Ivory · Dewy · Romantic. Luminous skin, soft
                   sculpted eyes, camera-first bridal and editorial.
                 </p>
                 <p className="mt-6 text-xs uppercase tracking-[0.3em] opacity-70">
@@ -143,15 +150,27 @@ export function BookClient() {
 
               <button
                 onClick={() => pickRegister("bold")}
-                className="group register-card-bold border border-border p-8 text-left transition-colors hover:border-foreground"
+                className="group border border-border p-8 text-left transition-colors hover:border-foreground"
+                style={{
+                  background:
+                    "linear-gradient(135deg, oklch(0.18 0.02 20), oklch(0.32 0.14 25))",
+                  color: "oklch(0.98 0.01 60)",
+                }}
               >
-                <p className="text-xs uppercase tracking-[0.3em] opacity-70">Style 02</p>
-                <p className="mt-3 font-display font-family-bold text-5xl font-bold leading-none uppercase tracking-[0.02em]">
+                <p className="text-xs uppercase tracking-[0.3em] opacity-70">Register 02</p>
+                <p
+                  className="mt-3 font-display text-5xl leading-none uppercase"
+                  style={{
+                    fontFamily: '"Archivo", "Inter", ui-sans-serif, system-ui, sans-serif',
+                    letterSpacing: "0.02em",
+                    fontWeight: 700,
+                  }}
+                >
                   Bold
                 </p>
                 <p className="mt-4 text-sm opacity-85">
-                  Graphic & Theatrical- think Stage. Click here if you're looking for high-contrast colour,
-                  editorial edge, red-carpet and theatre/performances.
+                  Noir · Graphic · Sculptural. High-contrast colour,
+                  editorial edge, red-carpet and campaign.
                 </p>
                 <p className="mt-6 text-xs uppercase tracking-[0.3em] opacity-70">
                   Choose Bold →
