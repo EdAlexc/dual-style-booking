@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://duel-style-booking.lovable.app/sitemap.xml

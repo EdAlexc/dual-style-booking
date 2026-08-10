@@ -6,7 +6,7 @@ import { z } from "zod";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { toast } from "sonner";
-import { submitBooking } from "@/lib/platform";
+import { neon } from "@/lib/neon";
 import { SERVICES } from "@/lib/site-data";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
@@ -72,23 +72,22 @@ export function BookClient() {
     if (!date) return;
     setSubmitting(true);
     const ref = makeReference();
-    // Bookings go to the clientflow platform (/api/v1/bookings) instead of
-    // this site's own Neon project — see src/lib/platform.ts.
-    const result = await submitBooking({
+    const { error } = await neon.from("bookings").insert({
       reference: ref,
       service: service.name,
-      style: theme,
-      eventDate: format(date, "yyyy-MM-dd"),
-      eventTime: time,
-      fullName,
+      theme,
+      event_date: format(date, "yyyy-MM-dd"),
+      event_time: time,
+      full_name: fullName,
       email,
       phone: phone || null,
       location: location || null,
       notes: notes || null,
     });
     setSubmitting(false);
-    if (!result.ok) {
-      toast.error(result.error ?? "We couldn't submit your request. Please try again.");
+    if (error) {
+      toast.error("We couldn't submit your request. Please try again.");
+      console.error(error);
       return;
     }
     setReference(ref);

@@ -1,0 +1,50 @@
+"use client";
+
+import Link from "next/link";
+import { SERVICES } from "@/lib/site-data";
+import { useTheme } from "@/lib/theme";
+
+export function ServicesClient() {
+  const { theme } = useTheme();
+  return (
+    <main className="min-h-screen">
+      <section className="mx-auto max-w-7xl px-6 pt-10 pb-8">
+        <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Services</p>
+        <h1 className="mt-3 font-display text-[clamp(2.5rem,6vw,5rem)] leading-[1]">
+          Every face, given time.
+        </h1>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 pb-24">
+        <div className="grid gap-px bg-border md:grid-cols-2">
+          {SERVICES.map((s) => (
+            <article key={s.slug} className="flex flex-col bg-background p-8 md:p-10">
+              <header className="flex items-baseline justify-between">
+                <h2 className="font-display text-3xl">{s.name}</h2>
+                <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  {s.duration}
+                </span>
+              </header>
+              <p className="mt-2 text-sm uppercase tracking-[0.2em] text-accent">{s.price}</p>
+              <p className="mt-4 text-foreground/85">{s.description}</p>
+              <p className="mt-6 text-xs uppercase tracking-[0.2em] text-muted-foreground">Includes:</p>
+              <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-sm text-muted-foreground">
+                {s.includes.map((i) => (
+                  <li key={i}>— {i}</li>
+                ))}
+              </ul>
+              <div className="mt-auto pt-8">
+                <Link
+                  href={`/book?service=${s.slug}&register=${theme}`}
+                  className="story-link text-xs uppercase tracking-[0.3em]"
+                >
+                  Book {s.name} →
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
