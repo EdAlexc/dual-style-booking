@@ -46,6 +46,21 @@ export const SERVICES: Service[] = [
   },
 ];
 
+/**
+ * "Includes" bullets are site presentation, not platform data — the admin
+ * catalog carries name/description/price/duration only. Keyed by slugified
+ * service name so admin-managed services keep their bullets; a service
+ * without an entry simply renders no Includes section.
+ */
+export const INCLUDES_BY_SLUG: Record<string, string[]> = {
+  bridal: ["Consultation", "Trial session", "On-location", "Touch-up kit"],
+  editorial: ["Concept call", "Mood boarding", "Set day", "Retouch notes"],
+  events: ["Skin prep", "Custom lash", "Setting for lights"],
+  "events-red-carpet": ["Skin prep", "Custom lash", "Setting for lights"],
+  lessons: ["Kit review", "Two full looks", "Take-home notes"],
+  "one-to-one-lessons": ["Kit review", "Two full looks", "Take-home notes"],
+};
+
 export type WorkPiece = {
   slug: string;
   title: string;
@@ -55,6 +70,9 @@ export type WorkPiece = {
   credit: string;
   /** Mux playback ID; when set, the card plays this video from Mux. */
   muxPlaybackId?: string;
+  /** Static-rendition filename for the MP4 (defaults to the legacy
+   * capped-1080p.mp4 when unset). */
+  muxMp4File?: string;
 };
 
 // To give a piece video, paste its Mux playback ID (from the Mux dashboard,
