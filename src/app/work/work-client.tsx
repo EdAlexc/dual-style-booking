@@ -3,15 +3,17 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
-import { WORK } from "@/lib/site-data";
+import type { WorkPiece } from "@/lib/site-data";
 import { muxMp4Url } from "@/lib/mux";
 import { useTheme } from "@/lib/theme";
+
+const INSTAGRAM_URL = "https://www.instagram.com/muabyedj/";
 
 const filterSchema = z.enum(["all", "glam", "bold"]).catch("all");
 
 type Filter = "all" | "glam" | "bold";
 
-export function WorkClient() {
+export function WorkClient({ pieces }: { pieces: WorkPiece[] }) {
   const searchParams = useSearchParams();
   const initialFilter = filterSchema.parse(searchParams.get("filter") ?? "all");
   const [filter, setFilter] = useState<Filter>(initialFilter);
@@ -23,8 +25,8 @@ export function WorkClient() {
   }, [initialFilter]);
 
   const items = useMemo(
-    () => (filter === "all" ? WORK : WORK.filter((w) => w.theme === filter)),
-    [filter],
+    () => (filter === "all" ? pieces : pieces.filter((w) => w.theme === filter)),
+    [filter, pieces],
   );
 
   return (
@@ -52,35 +54,54 @@ export function WorkClient() {
       <section className="mx-auto grid max-w-7xl grid-cols-1 gap-x-6 gap-y-16 px-6 pb-24 md:grid-cols-2 lg:grid-cols-3">
         {items.map((w, i) => (
           <article key={w.slug} className="group animate-fade-in-up" style={{ animationDelay: `${i * 60}ms` }}>
-            <div
-              className={`relative aspect-[3/4] overflow-hidden bg-muted ${
-                w.theme === "bold" ? "work-card-bold" : "work-card-glam"
-              }`}
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${w.title} — see more on Instagram @muabyedj`}
+              className="block"
             >
-              {/* Mux footage; the gradient behind stays visible until it loads */}
-              {w.muxPlaybackId && (
-                <video
-                  muted
-                  loop
-                  playsInline
-                  autoPlay
-                  preload="metadata"
-                  src={muxMp4Url(w.muxPlaybackId)}
-                  className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-                />
-              )}
-              <div className="absolute inset-0 flex items-end p-6">
-                <span className="font-display text-4xl text-background mix-blend-difference">
-                  {w.title}
+              <div
+                className={`relative aspect-[3/4] overflow-hidden bg-muted ${
+                  w.theme === "bold" ? "work-card-bold" : "work-card-glam"
+                }`}
+              >
+                {/* Mux footage; the gradient behind stays visible until it loads */}
+                {w.muxPlaybackId && (
+                  <video
+                    muted
+                    loop
+                    playsInline
+                    autoPlay
+                    preload="metadata"
+                    src={muxMp4Url(w.muxPlaybackId, w.muxMp4File)}
+                    className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+                  />
+                )}
+                <div className="absolute inset-0 flex items-end p-6">
+                  <span className="font-display text-4xl text-background mix-blend-difference">
+                    {w.title}
+                  </span>
+                </div>
+                <span className="absolute right-4 top-4 border border-background/40 px-2 py-1 text-[9px] uppercase tracking-[0.3em] text-background mix-blend-difference">
+                  {w.theme}
                 </span>
               </div>
-              <span className="absolute right-4 top-4 border border-background/40 px-2 py-1 text-[9px] uppercase tracking-[0.3em] text-background mix-blend-difference">
-                {w.theme}
-              </span>
-            </div>
+            </a>
             <div className="mt-3 flex items-baseline justify-between text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              <span>{w.location} · {w.year}</span>
-              <span>{w.credit}</span>
+              <span>{[w.location, w.year].filter(Boolean).join(" · ")}</span>
+              {w.credit ? (
+                <span>{w.credit}</span>
+              ) : (
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="story-link"
+                >
+                  @muabyedj ↗
+                </a>
+              )}
             </div>
           </article>
         ))}
