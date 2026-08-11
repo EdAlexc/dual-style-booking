@@ -74,7 +74,7 @@ export function WorkClient({ pieces }: { pieces: WorkPiece[] }) {
                     playsInline
                     autoPlay
                     preload="metadata"
-                    src={muxMp4Url(w.muxPlaybackId)}
+                    src={muxMp4Url(w.muxPlaybackId, w.muxMp4File)}
                     className="pointer-events-none absolute inset-0 h-full w-full object-cover"
                   />
                 )}

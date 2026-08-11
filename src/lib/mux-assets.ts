@@ -27,6 +27,26 @@ interface MuxAsset {
   passthrough?: string;
   meta?: { title?: string };
   playback_ids?: { id: string; policy: string }[];
+  static_renditions?: {
+    status?: string;
+    files?: { name?: string; status?: string; ext?: string }[];
+  };
+}
+
+/** The asset's best ready MP4 rendition filename, if any. */
+function mp4File(asset: MuxAsset): string | undefined {
+  const files = asset.static_renditions?.files ?? [];
+  const ready = files.filter(
+    (f) => f.name?.endsWith(".mp4") && (f.status === undefined || f.status === "ready"),
+  );
+  // Prefer the highest-quality rendition when several exist.
+  const order = ["highest.mp4", "capped-1080p.mp4", "high.mp4", "medium.mp4", "low.mp4"];
+  ready.sort((a, b) => {
+    const ai = order.indexOf(a.name ?? "");
+    const bi = order.indexOf(b.name ?? "");
+    return (ai === -1 ? order.length : ai) - (bi === -1 ? order.length : bi);
+  });
+  return ready[0]?.name;
 }
 
 export async function listMuxWork(): Promise<WorkPiece[] | null> {
@@ -80,6 +100,7 @@ export async function listMuxWork(): Promise<WorkPiece[] | null> {
           year: new Date(Number(asset.created_at) * 1000).getFullYear(),
           credit: "",
           muxPlaybackId: playback.id,
+          muxMp4File: mp4File(asset),
         };
       });
 

@@ -70,6 +70,9 @@ export type WorkPiece = {
   credit: string;
   /** Mux playback ID; when set, the card plays this video from Mux. */
   muxPlaybackId?: string;
+  /** Static-rendition filename for the MP4 (defaults to the legacy
+   * capped-1080p.mp4 when unset). */
+  muxMp4File?: string;
 };
 
 // To give a piece video, paste its Mux playback ID (from the Mux dashboard,
