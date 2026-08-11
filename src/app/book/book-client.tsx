@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { toast } from "sonner";
 import { submitBooking } from "@/lib/platform";
-import { useServices } from "@/lib/use-services";
+import { SERVICES } from "@/lib/site-data";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -43,8 +43,6 @@ export function BookClient() {
     [searchParams],
   );
   const { theme, setTheme } = useTheme();
-  // Live admin-managed catalog; hardcoded list until it loads / as fallback.
-  const services = useServices();
 
   const [step, setStep] = useState<Step>(initial.register ? 1 : 0);
   const [serviceSlug, setServiceSlug] = useState<string>(initial.service ?? "bridal");
@@ -58,12 +56,7 @@ export function BookClient() {
   const [submitting, setSubmitting] = useState(false);
   const [reference, setReference] = useState<string | null>(null);
 
-  // A slug that isn't in the (possibly freshly-loaded) catalog falls back to
-  // the first service rather than crashing the flow.
-  const service = useMemo(
-    () => services.find((s) => s.slug === serviceSlug) ?? services[0],
-    [services, serviceSlug],
-  );
+  const service = useMemo(() => SERVICES.find((s) => s.slug === serviceSlug)!, [serviceSlug]);
 
   function pickRegister(r: "glam" | "bold") {
     setTheme(r);
@@ -169,7 +162,7 @@ export function BookClient() {
 
           {step === 1 && (
             <div className="grid gap-4 sm:grid-cols-2">
-              {services.map((s) => (
+              {SERVICES.map((s) => (
                 <button
                   key={s.slug}
                   onClick={() => setServiceSlug(s.slug)}

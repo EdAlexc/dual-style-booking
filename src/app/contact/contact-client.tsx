@@ -1,14 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { z } from "zod";
-import { submitContactMessage } from "@/lib/platform";
 import { useTheme } from "@/lib/theme";
-
-function makeReference() {
-  return "CT-" + Math.random().toString(36).slice(2, 8).toUpperCase();
-}
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
@@ -28,13 +23,9 @@ export function ContactClient() {
   const { theme } = useTheme();
   const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [feedback, setFeedback] = useState<string | null>(null);
-  // One reference per message: retrying a failed send reuses it (the
-  // platform's Idempotency-Key), so the message can never double-deliver.
-  const referenceRef = useRef(makeReference());
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const result = contactSchema.safeParse(form);
     if (!result.success) {
@@ -48,26 +39,14 @@ export function ContactClient() {
     }
     setErrors({});
     setStatus("sending");
-    // The message goes to the clientflow platform (Contact form on
-    // /api/v1/forms), which stores it in the CRM and emails the studio's
-    // inbox — no dependence on the visitor's mail client.
-    const outcome = await submitContactMessage({
-      reference: referenceRef.current,
-      name: result.data.name,
-      email: result.data.email,
-      phone: result.data.phone || null,
-      subject: result.data.subject,
-      message: result.data.message,
-    });
-    if (!outcome.ok) {
-      setStatus("error");
-      setFeedback(outcome.error ?? "We couldn't send your message. Please try again.");
-      return;
-    }
+    const subject = encodeURIComponent(result.data.subject);
+    const phoneLine = result.data.phone ? `\nPhone: ${result.data.phone}` : "";
+    const body = encodeURIComponent(
+      `${result.data.message}\n\n— ${result.data.name} (${result.data.email})${phoneLine}`,
+    );
+    window.location.href = `mailto:hello@studio-mua.com?subject=${subject}&body=${body}`;
     setStatus("sent");
-    setFeedback(outcome.confirmation ?? "Thanks — your message is on its way.");
     setForm({ name: "", email: "", phone: "", subject: "", message: "" });
-    referenceRef.current = makeReference();
   };
 
 
@@ -165,7 +144,7 @@ export function ContactClient() {
             {errors.message && <p className="mt-1 text-xs text-destructive">{errors.message}</p>}
           </div>
 
-          <div className="flex flex-wrap items-center gap-6">
+          <div className="flex items-center gap-6">
             <button
               type="submit"
               disabled={status === "sending"}
@@ -173,11 +152,8 @@ export function ContactClient() {
             >
               {status === "sending" ? "Sending…" : "Send message"}
             </button>
-            {status === "sent" && feedback && (
-              <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">{feedback}</p>
-            )}
-            {status === "error" && feedback && (
-              <p className="text-xs uppercase tracking-[0.3em] text-destructive">{feedback}</p>
+            {status === "sent" && (
+              <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Thanks — opening your email app.</p>
             )}
           </div>
           </form>
