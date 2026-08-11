@@ -1,13 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useServices } from "@/lib/use-services";
+import { SERVICES } from "@/lib/site-data";
 import { useTheme } from "@/lib/theme";
 
 export function ServicesClient() {
   const { theme } = useTheme();
-  // Live admin-managed catalog; hardcoded list until it loads / as fallback.
-  const services = useServices();
   return (
     <main className="min-h-screen">
       <section className="mx-auto max-w-7xl px-6 pt-10 pb-8">
@@ -19,7 +17,7 @@ export function ServicesClient() {
 
       <section className="mx-auto max-w-7xl px-6 pb-24">
         <div className="grid gap-px bg-border md:grid-cols-2">
-          {services.map((s) => (
+          {SERVICES.map((s) => (
             <article key={s.slug} className="flex flex-col bg-background p-8 md:p-10">
               <header className="flex items-baseline justify-between">
                 <h2 className="font-display text-3xl">{s.name}</h2>
@@ -29,16 +27,12 @@ export function ServicesClient() {
               </header>
               <p className="mt-2 text-sm uppercase tracking-[0.2em] text-accent">{s.price}</p>
               <p className="mt-4 text-foreground/85">{s.description}</p>
-              {s.includes.length > 0 && (
-                <>
-                  <p className="mt-6 text-xs uppercase tracking-[0.2em] text-muted-foreground">Includes:</p>
-                  <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-sm text-muted-foreground">
-                    {s.includes.map((i) => (
-                      <li key={i}>— {i}</li>
-                    ))}
-                  </ul>
-                </>
-              )}
+              <p className="mt-6 text-xs uppercase tracking-[0.2em] text-muted-foreground">Includes:</p>
+              <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-sm text-muted-foreground">
+                {s.includes.map((i) => (
+                  <li key={i}>— {i}</li>
+                ))}
+              </ul>
               <div className="mt-auto pt-8">
                 <Link
                   href={`/book?service=${s.slug}&register=${theme}`}

@@ -8,15 +8,8 @@
 // Landing-page hero playback IDs come from env (see .env / .env.example);
 // per-piece Work videos are set on WORK items in src/lib/site-data.ts.
 
-/**
- * MP4 URL for a playback ID. `file` is the asset's static-rendition
- * filename: legacy "MP4 support" assets ship capped-1080p.mp4 (the
- * default, which keeps the hero videos working), current-API renditions
- * are named by resolution (e.g. highest.mp4) — the Work page passes the
- * real name straight from the asset's static_renditions list.
- */
-export function muxMp4Url(playbackId: string, file: string = "capped-1080p.mp4"): string {
-  return `https://stream.mux.com/${playbackId}/${file}`;
+export function muxMp4Url(playbackId: string): string {
+  return `https://stream.mux.com/${playbackId}/capped-1080p.mp4`;
 }
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";

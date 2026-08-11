@@ -13,48 +13,20 @@ Open http://localhost:3000. In a Codespace, port 3000 is forwarded automatically
 
 Client configuration (Neon URLs, Mux playback IDs) is read from the committed [`.env`](.env) — everything in it is public client-side config, not secrets. Use `.env.local` for personal overrides.
 
-## Backend: the clientflow platform
+## Backend: Neon
 
-The site is a headless frontend of the multi-tenant clientflow platform
-(tenant `emmanuel-de-jesus-mua`), authenticated by the publishable site key
-in [`.env`](.env) — see [`src/lib/platform.ts`](src/lib/platform.ts):
+Bookings are stored in a [Neon](https://neon.tech) Postgres project (`dual-style-booking`, id `lucky-rain-45813209`) and written through the **Neon Data API** (PostgREST-style) straight from the browser:
 
-- **Bookings** (`/book`) POST to `/api/v1/bookings`; the local `SM-XXXX`
-  reference doubles as the `Idempotency-Key` so retries never double-book.
-- **Services** (`/services` and the booking flow's step 1) load from
-  `GET /api/v1/services` — the catalog managed in the platform admin under
-  Services. The list in [`src/lib/site-data.ts`](src/lib/site-data.ts) is
-  only the fallback while loading / offline; "Includes" bullets stay
-  site-side (`INCLUDES_BY_SLUG`).
-- **Contact** (`/contact`) POSTs to the platform's Contact form
-  (`/api/v1/forms/{id}/submit`). Messages land in the platform CRM and the
-  platform emails the studio's notification inbox — no more `mailto:`.
-
-Everything the visitor's browser needs is public config (platform URL,
-publishable key, form id), so all three flows also work on the GitHub Pages
-static export. The old direct-to-Neon path ([`src/lib/neon.ts`](src/lib/neon.ts),
-project `lucky-rain-45813209`) is legacy — kept only until its historical
-bookings are imported into the platform.
+- [`src/lib/neon.ts`](src/lib/neon.ts) creates a `@neondatabase/neon-js` client with `allowAnonymous: true` — visitors get a short-lived anonymous JWT from Neon Auth automatically.
+- What anonymous visitors can do is enforced in Postgres: the `anonymous` role only has `INSERT` on `public.bookings`, guarded by a validating RLS policy (and a deny-all `SELECT` policy).
+- No server code is needed, so the site still works as a fully static export on GitHub Pages.
 
 ## Video: Mux
 
-Videos are streamed from [Mux](https://mux.com) as MP4s (enable **MP4
-support / static renditions** on each asset):
+Videos are streamed from [Mux](https://mux.com) as MP4s (enable **MP4 support / static renditions** on each asset):
 
-- **Work page** cards come from the Mux environment itself: every READY
-  asset with a public playback ID renders as a card, newest first
-  ([`src/lib/mux-assets.ts`](src/lib/mux-assets.ts)) — upload a video in the
-  Mux dashboard and it appears within ~5 minutes, no deploy. The asset's
-  title (or passthrough) becomes the card title; put "Glam" or "Bold" in it
-  to pick the register tag. Requires the server-only `MUX_TOKEN_ID` /
-  `MUX_TOKEN_SECRET` (`.env.local` / deploy env); without them — e.g. the
-  GitHub Pages build — the page falls back to the hardcoded pieces in
-  [`src/lib/site-data.ts`](src/lib/site-data.ts). Every card links to
-  [@muabyedj on Instagram](https://www.instagram.com/muabyedj/).
-- **Landing page** hero panels: set `NEXT_PUBLIC_MUX_PLAYBACK_ID_GLAM` and
-  `NEXT_PUBLIC_MUX_PLAYBACK_ID_BOLD` in `.env`. Without them the page falls
-  back to `public/videos/{glam,bold}.mp4`, and to the poster images if those
-  don't exist.
+- **Landing page** hero panels: set `NEXT_PUBLIC_MUX_PLAYBACK_ID_GLAM` and `NEXT_PUBLIC_MUX_PLAYBACK_ID_BOLD` in `.env`. Without them the page falls back to `public/videos/{glam,bold}.mp4`, and to the poster images if those don't exist.
+- **Work page** cards: set `muxPlaybackId` on any piece in [`src/lib/site-data.ts`](src/lib/site-data.ts) and the card plays that video (the theme gradient shows until it loads).
 - URL helpers live in [`src/lib/mux.ts`](src/lib/mux.ts).
 
 ## Deploy
