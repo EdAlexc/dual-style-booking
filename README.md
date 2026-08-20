@@ -11,7 +11,7 @@ npm run dev
 
 Open http://localhost:3000. In a Codespace, port 3000 is forwarded automatically — open the "Ports" tab and follow the forwarded URL (the dev server already binds `0.0.0.0`).
 
-Client configuration (Neon URLs, Mux playback IDs) is read from the committed [`.env`](.env) — everything in it is public client-side config, not secrets. Use `.env.local` for personal overrides.
+Client configuration (platform URL + site key, Mux playback IDs) is read from the committed [`.env`](.env) — everything in it is public client-side config, not secrets. Use `.env.local` for personal overrides.
 
 ## Backend: the clientflow platform
 
@@ -32,9 +32,11 @@ in [`.env`](.env) — see [`src/lib/platform.ts`](src/lib/platform.ts):
 
 Everything the visitor's browser needs is public config (platform URL,
 publishable key, form id), so all three flows also work on the GitHub Pages
-static export. The old direct-to-Neon path ([`src/lib/neon.ts`](src/lib/neon.ts),
-project `lucky-rain-45813209`) is legacy — kept only until its historical
-bookings are imported into the platform.
+static export. The old direct-to-Neon path (`src/lib/neon.ts`, project
+`lucky-rain-45813209`) is gone: its historical bookings were imported into
+the platform in August 2026 (traceable via `external_ref`
+`legacy_bookings:<source id>` on each imported row), so the tenant's whole
+history is managed in the platform admin.
 
 ## Video: Mux
 
