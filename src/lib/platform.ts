@@ -1,7 +1,7 @@
 // Client for the clientflow platform's headless API (/api/v1).
 //
 // Bookings used to be written straight to this site's own Neon project from
-// the browser (src/lib/neon.ts); they now POST to the multi-tenant platform,
+// the browser; they now POST to the multi-tenant platform,
 // authenticated by a PUBLISHABLE site key. The key is not a secret — it only
 // authorizes write-only submit endpoints, scoped server-side to this site's
 // tenant and Origin allowlist.
