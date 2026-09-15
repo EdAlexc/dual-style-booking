@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useServices } from "@/lib/use-services";
+import { useServicesForTheme } from "@/lib/use-services";
 import { useTheme } from "@/lib/theme";
 
 export function ServicesClient() {
   const { theme } = useTheme();
-  // Live admin-managed catalog; hardcoded list until it loads / as fallback.
-  const services = useServices();
+  // Live admin-managed catalog, narrowed to the active register; hardcoded
+  // list until it loads / as fallback.
+  const services = useServicesForTheme(theme);
   return (
     <main className="min-h-screen">
       <section className="mx-auto max-w-7xl px-6 pt-10 pb-8">

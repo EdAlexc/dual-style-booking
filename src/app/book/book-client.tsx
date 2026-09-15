@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { toast } from "sonner";
 import { submitBooking } from "@/lib/platform";
-import { useServices } from "@/lib/use-services";
+import { useServicesForTheme } from "@/lib/use-services";
 import { useTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -43,8 +43,9 @@ export function BookClient() {
     [searchParams],
   );
   const { theme, setTheme } = useTheme();
-  // Live admin-managed catalog; hardcoded list until it loads / as fallback.
-  const services = useServices();
+  // Live admin-managed catalog narrowed to the chosen register (step 0);
+  // hardcoded list until it loads / as fallback.
+  const services = useServicesForTheme(theme);
 
   const [step, setStep] = useState<Step>(initial.register ? 1 : 0);
   const [serviceSlug, setServiceSlug] = useState<string>(initial.service ?? "bridal");

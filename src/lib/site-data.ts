@@ -5,6 +5,12 @@ export type Service = {
   duration: string;
   description: string;
   includes: string[];
+  /**
+   * Platform theme this service is filed under ("Glam" / "Bold" in the admin
+   * catalog). Absent on the hardcoded fallback list, which is shown under
+   * either register.
+   */
+  theme?: string;
 };
 
 export const SERVICES: Service[] = [
