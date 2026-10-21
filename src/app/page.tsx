@@ -6,7 +6,7 @@ const localBusinessJsonLd = {
   name: "Emmanuel de Jesus MUA",
   description:
     "Editorial and bridal makeup artistry in New York City. Glam and Bold registers for weddings, editorial, campaign, and events.",
-  url: "https://duel-style-booking.lovable.app",
+  url: "https://www.muabyedj.com/",
   areaServed: "New York City",
   address: { "@type": "PostalAddress", addressLocality: "New York", addressRegion: "NY", addressCountry: "US" },
   image:
