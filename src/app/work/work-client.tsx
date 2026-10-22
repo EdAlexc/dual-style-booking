@@ -54,7 +54,7 @@ export function WorkClient({ pieces }: { pieces: WorkPiece[] }) {
         {items.map((w, i) => (
           <article key={w.slug} className="group animate-fade-in-up" style={{ animationDelay: `${i * 60}ms` }}>
             <a
-              href={INSTAGRAM_URL}
+              href={w.url}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${w.title} — see more on Instagram @muabyedj`}

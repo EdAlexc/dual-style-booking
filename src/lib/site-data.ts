@@ -74,6 +74,7 @@ export type WorkPiece = {
   location: string;
   year: number;
   credit: string;
+  url: string;
   /** Public URL of the card's photo (Neon Object Storage); when set, the
    * card shows this image. */
   imageUrl?: string;
@@ -83,10 +84,10 @@ export type WorkPiece = {
 // src/lib/neon-storage.ts) and paste the object's public URL here, e.g.
 // imageUrl: "https://br-....storage.c-3.us-east-2.aws.neon.tech/work-images/glam/champagne.jpg".
 export const WORK: WorkPiece[] = [
-  { slug: "dune-daughter", title: "Dune, Daughter", theme: "bold", location: "Brooklyn", year: 2026, credit: "Photographer: L. Ito" },
-  { slug: "ivory-in-june", title: "Ivory, In June", theme: "glam", location: "West Village", year: 2026, credit: "Photographer: A. Marín" },
-  { slug: "black-satin", title: "Black Satin", theme: "bold", location: "Bushwick", year: 2025, credit: "Vogue Italia — Beauty" },
-  { slug: "champagne", title: "Champagne", theme: "glam", location: "Upper East", year: 2025, credit: "Bridal — private" },
-  { slug: "high-wire", title: "High Wire", theme: "bold", location: "Times Sq", year: 2025, credit: "Campaign — NARS" },
-  { slug: "peach-linen", title: "Peach Linen", theme: "glam", location: "Sag Harbor", year: 2024, credit: "Editorial — Cereal" },
+  { slug: "dune-daughter", title: "Dune, Daughter", theme: "bold", location: "Brooklyn", year: 2026, credit: "Photographer: L. Ito", url: "https://www.instagram.com/stories/highlights/17981774548470680/" },
+  { slug: "ivory-in-june", title: "Ivory, In June", theme: "glam", location: "West Village", year: 2026, credit: "Photographer: A. Marín", url: "https://example.com/ivory-in-june" },
+  { slug: "black-satin", title: "Black Satin", theme: "bold", location: "Bushwick", year: 2025, credit: "Vogue Italia — Beauty", url: "https://example.com/black-satin" },
+  { slug: "champagne", title: "Champagne", theme: "glam", location: "Upper East", year: 2025, credit: "Bridal — private", url: "https://example.com/champagne" },
+  { slug: "high-wire", title: "High Wire", theme: "bold", location: "Times Sq", year: 2025, credit: "Campaign — NARS", url: "https://example.com/high-wire" },
+  { slug: "peach-linen", title: "Peach Linen", theme: "glam", location: "Sag Harbor", year: 2024, credit: "Editorial — Cereal", url: "https://example.com/peach-linen" },
 ];
