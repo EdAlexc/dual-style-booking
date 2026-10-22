@@ -171,9 +171,9 @@ export function HomeClient() {
                 onClick={() => pickExplore("glam")}
                 className="group border border-white/30 p-6 text-left transition-colors hover:bg-white hover:text-black"
               >
-                <p className="font-display text-3xl">Glam</p>
+                <p className="font-display text-3xl">Beauty</p>
                 <p className="mt-2 text-xs uppercase tracking-[0.3em] text-white/60 group-hover:text-black/60">
-                  Ivory · Dewy · Editorial
+                  Bridal · Editorial · Natural Beauty
                 </p>
               </button>
               <button
@@ -183,7 +183,7 @@ export function HomeClient() {
               >
                 <p className="font-display text-3xl uppercase tracking-wide">Bold</p>
                 <p className="mt-2 text-xs uppercase tracking-[0.3em] text-white/60 group-hover:text-black/60">
-                  Noir · Graphic · Editorial
+                  FX · Body Paint · Theatrical
                 </p>
               </button>
             </div>
