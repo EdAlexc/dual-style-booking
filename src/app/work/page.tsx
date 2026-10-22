@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-import { listMuxWork } from "@/lib/mux-assets";
+import { listNeonWork } from "@/lib/neon-storage";
 import { WORK } from "@/lib/site-data";
 import { WorkClient } from "./work-client";
+
+// Re-list the bucket at most every 5 minutes so an upload shows up without
+// a deploy (ISR); listNeonWork's AWS SDK call bypasses Next's fetch cache,
+// so the window has to be set explicitly here.
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Work — Emmanuel de Jesus MUA",
@@ -15,10 +20,10 @@ export const metadata: Metadata = {
 };
 
 export default async function WorkPage() {
-  // Live pieces from the client's Mux environment; the hardcoded list is the
-  // fallback until videos are uploaded (and on builds without credentials,
-  // e.g. the GitHub Pages export).
-  const pieces = (await listMuxWork()) ?? WORK;
+  // Live pieces from the client's Neon Object Storage bucket; the hardcoded
+  // list is the fallback until photos are uploaded (and on builds without
+  // credentials, e.g. the GitHub Pages export).
+  const pieces = (await listNeonWork()) ?? WORK;
 
   const collectionJsonLd = {
     "@context": "https://schema.org",
