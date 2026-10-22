@@ -78,7 +78,7 @@ export function HomeClient() {
         onActivate={() => activate("glam")}
         onNavigate={() => openWork("glam")}
         onDeactivate={deactivate}
-        clip="polygon(0 0, 100% 0, 0 100%)"
+        clip="polygon(0 0, 70% 0, 30% 100%, 0 100%)"
         align="items-start justify-start"
         textAnchor="left-[6vw] top-[10vh]"
         label="Glam"
@@ -97,7 +97,7 @@ export function HomeClient() {
         onActivate={() => activate("bold")}
         onNavigate={() => openWork("bold")}
         onDeactivate={deactivate}
-        clip="polygon(100% 0, 100% 100%, 0 100%)"
+        clip="polygon(70% 0, 100% 0, 100% 100%, 30% 100%)"
         align="items-end justify-end"
         textAnchor="right-[6vw] bottom-[10vh] text-right"
         label="Bold"
