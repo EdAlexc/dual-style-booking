@@ -40,22 +40,22 @@ history is managed in the platform admin.
 
 ## Images: Neon Object Storage
 
-- **Work page** cards come from a Neon Object Storage bucket
-  (`work-images`, project `dual-style-booking` /
-  `lucky-rain-45813209`, access level **public_read** — these are public
-  portfolio photos, so reads need no credential): every object in the
-  bucket renders as a card, newest first
+- **Work page** cards come from two Neon Object Storage buckets, one per
+  register — `work-images-glam` and `work-images-bold` (project
+  `dual-style-booking` / `lucky-rain-45813209`), access level
+  **public_read** — these are public portfolio photos, so reads need no
+  credential: every object in either bucket renders as its own card
+  (newest first across both), tagged by which bucket it came from
   ([`src/lib/neon-storage.ts`](src/lib/neon-storage.ts)) — upload a photo
-  to the bucket (Neon Console, `neon` CLI, or any S3 client) and it appears
-  within ~5 minutes, no deploy. The object's key sets the card: a key under
-  `bold/` or `glam/` picks the register tag (otherwise pieces alternate),
-  and the filename becomes the title, e.g. `bold/high-wire.jpg` → "High
-  Wire" / bold. Listing the bucket (not reading an individual photo) is a
-  signed S3 call and needs the server-only `NEON_STORAGE_ACCESS_KEY_ID` /
-  `NEON_STORAGE_SECRET_ACCESS_KEY` (`.env.local` / deploy env); without them
-  — e.g. the GitHub Pages build — the page falls back to the hardcoded
-  pieces in [`src/lib/site-data.ts`](src/lib/site-data.ts). Every card
-  links to [@muabyedj on Instagram](https://www.instagram.com/muabyedj/).
+  to the right bucket (Neon Console, `neon` CLI, or any S3 client) and it
+  appears within ~5 minutes, no deploy. The filename becomes the title,
+  e.g. `high-wire.jpg` → "High Wire". Listing a bucket (not reading an
+  individual photo) is a signed S3 call and needs the server-only
+  `NEON_STORAGE_ACCESS_KEY_ID` / `NEON_STORAGE_SECRET_ACCESS_KEY`
+  (`.env.local` / deploy env); without them — e.g. the GitHub Pages build —
+  the page falls back to the hardcoded pieces in
+  [`src/lib/site-data.ts`](src/lib/site-data.ts). Every card links to
+  [@muabyedj on Instagram](https://www.instagram.com/muabyedj/).
 - **Landing page** hero panels still stream video from
   [Mux](https://mux.com): set `NEXT_PUBLIC_MUX_PLAYBACK_ID_GLAM` and
   `NEXT_PUBLIC_MUX_PLAYBACK_ID_BOLD` in `.env`. Without them the page falls

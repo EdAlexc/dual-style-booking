@@ -79,9 +79,10 @@ export type WorkPiece = {
   imageUrl?: string;
 };
 
-// To give a piece a photo, upload it to the "work-images" bucket (see
-// src/lib/neon-storage.ts) and paste the object's public URL here, e.g.
-// imageUrl: "https://br-....storage.c-3.us-east-2.aws.neon.tech/work-images/glam/champagne.jpg".
+// To give a piece a photo, upload it to the "work-images-glam" or
+// "work-images-bold" bucket (see src/lib/neon-storage.ts) and paste the
+// object's public URL here, e.g.
+// imageUrl: "https://br-....storage.c-3.us-east-2.aws.neon.tech/work-images-glam/champagne.jpg".
 export const WORK: WorkPiece[] = [
   { slug: "dune-daughter", title: "Dune, Daughter", theme: "bold", location: "Brooklyn", year: 2026, credit: "Photographer: L. Ito" },
   { slug: "ivory-in-june", title: "Ivory, In June", theme: "glam", location: "West Village", year: 2026, credit: "Photographer: A. Marín" },
