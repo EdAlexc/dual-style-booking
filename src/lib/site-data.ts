@@ -74,15 +74,14 @@ export type WorkPiece = {
   location: string;
   year: number;
   credit: string;
-  /** Mux playback ID; when set, the card plays this video from Mux. */
-  muxPlaybackId?: string;
-  /** Static-rendition filename for the MP4 (defaults to the legacy
-   * capped-1080p.mp4 when unset). */
-  muxMp4File?: string;
+  /** Public URL of the card's photo (Neon Object Storage); when set, the
+   * card shows this image. */
+  imageUrl?: string;
 };
 
-// To give a piece video, paste its Mux playback ID (from the Mux dashboard,
-// with MP4 support enabled on the asset), e.g. muxPlaybackId: "DS00Spx1CV...".
+// To give a piece a photo, upload it to the "work-images" bucket (see
+// src/lib/neon-storage.ts) and paste the object's public URL here, e.g.
+// imageUrl: "https://br-....storage.c-3.us-east-2.aws.neon.tech/work-images/glam/champagne.jpg".
 export const WORK: WorkPiece[] = [
   { slug: "dune-daughter", title: "Dune, Daughter", theme: "bold", location: "Brooklyn", year: 2026, credit: "Photographer: L. Ito" },
   { slug: "ivory-in-june", title: "Ivory, In June", theme: "glam", location: "West Village", year: 2026, credit: "Photographer: A. Marín" },

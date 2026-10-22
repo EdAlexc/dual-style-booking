@@ -4,7 +4,6 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 import type { WorkPiece } from "@/lib/site-data";
-import { muxMp4Url } from "@/lib/mux";
 import { useTheme } from "@/lib/theme";
 
 const INSTAGRAM_URL = "https://www.instagram.com/muabyedj/";
@@ -66,15 +65,12 @@ export function WorkClient({ pieces }: { pieces: WorkPiece[] }) {
                   w.theme === "bold" ? "work-card-bold" : "work-card-glam"
                 }`}
               >
-                {/* Mux footage; the gradient behind stays visible until it loads */}
-                {w.muxPlaybackId && (
-                  <video
-                    muted
-                    loop
-                    playsInline
-                    autoPlay
-                    preload="metadata"
-                    src={muxMp4Url(w.muxPlaybackId, w.muxMp4File)}
+                {/* The gradient behind stays visible until the photo loads */}
+                {w.imageUrl && (
+                  <img
+                    src={w.imageUrl}
+                    alt={w.title}
+                    loading="lazy"
                     className="pointer-events-none absolute inset-0 h-full w-full object-cover"
                   />
                 )}
