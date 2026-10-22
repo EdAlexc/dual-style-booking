@@ -81,8 +81,8 @@ export function HomeClient() {
         clip="polygon(0 0, 70% 0, 30% 100%, 0 100%)"
         align="items-start justify-start"
         textAnchor="left-[6vw] top-[10vh]"
-        label="Glam"
-        subtitle="Ivory · Dewy · Editorial"
+        label="Beauty"
+        subtitle="Bridal · Editorial · Natural Beauty"
         videoRef={glamVideo}
         videoSrc={heroVideoSrc("glam")}
         poster={glamPoster.src}
@@ -101,7 +101,7 @@ export function HomeClient() {
         align="items-end justify-end"
         textAnchor="right-[6vw] bottom-[10vh] text-right"
         label="Bold"
-        subtitle="Noir · Graphic · Editorial"
+        subtitle="FX · Body Paint · Theatrical"
         videoRef={boldVideo}
         videoSrc={heroVideoSrc("bold")}
         poster={boldPoster.src}
