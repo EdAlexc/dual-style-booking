@@ -7,7 +7,7 @@ import { useTheme } from "@/lib/theme";
 
 const nav = [
   { to: "/work", label: "Work" },
-  { to: "/services", label: "Services" },
+  // { to: "/services", label: "Services" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ] as const;
